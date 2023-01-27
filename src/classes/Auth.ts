@@ -2,17 +2,8 @@ export enum HashPasswordVersion {
     v1 = "v1"
 }
 
-export class Auth {
-    static hashPassword(input: string, version: HashPasswordVersion) {
-        switch (version) {
-            case HashPasswordVersion.v1:
-                return Auth.__hashPasswordV1(input)
-            default:
-                return Auth.__hashPasswordV1(input)
-        }
-    }
-
-    static __hashPasswordV1(input: string) {
+class AuthInternal {
+    static hashPasswordV1(input: string) {
         let hash = 0
 
         for (let i = 0; i < input.length; i++) {
@@ -22,5 +13,16 @@ export class Auth {
         }
 
         return String(hash)
+    }
+}
+
+export class Auth {
+    static hashPassword(input: string, version: HashPasswordVersion) {
+        switch (version) {
+            case HashPasswordVersion.v1:
+                return AuthInternal.hashPasswordV1(input)
+            default:
+                return AuthInternal.hashPasswordV1(input)
+        }
     }
 }
