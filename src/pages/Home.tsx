@@ -2,15 +2,15 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Auth } from "../classes/Auth"
-import { User } from "../classes/User"
+import { State } from "../classes/State"
 
 export default function Home() {
     const navigate = useNavigate()
 
-    const [users, setUsers] = useState<User[]>([])
+    const [atlasState, setAtlasState] = useState<State>({} as State)
     const fetchUsers = async () => {
-        const res = await axios.get("http://localhost:5000/users")
-        setUsers(res.data as User[])
+        const res = await axios.get("http://localhost:5000/state")
+        setAtlasState(res.data as State)
     }
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function Home() {
         Auth.onRestrictedPageLoad(navigate)
     }, [])
 
-    console.log(users)
+    console.log(atlasState)
 
     return <>Home</>
 }
