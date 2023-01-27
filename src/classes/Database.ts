@@ -1,10 +1,14 @@
+import { Entry } from "./Entry"
+
 export class Database {
     private id: string
     private name: string
+    private entries: Entry[]
 
-    constructor(id: string, name: string) {
+    constructor(id: string, name: string, entries: Entry[] = []) {
         this.id = id
         this.name = name
+        this.entries = entries
     }
 
     // Getters
@@ -17,6 +21,10 @@ export class Database {
         return this.name
     }
 
+    getEntries() {
+        return this.entries
+    }
+
     // Setters
 
     setId(id: string) {
@@ -25,5 +33,17 @@ export class Database {
 
     setName(name: string) {
         this.name = name
+    }
+
+    addEntry(entry: Entry) {
+        this.entries.push(entry)
+    }
+
+    removeEntry(entry: Entry) {
+        this.entries = this.entries.filter((e) => e !== entry)
+    }
+
+    removeEntryById(entryId: string) {
+        this.entries = this.entries.filter((e) => e.getId() !== entryId)
     }
 }
