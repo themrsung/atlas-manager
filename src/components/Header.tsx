@@ -1,11 +1,15 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { RoutePathName as RouterPathName } from "./Router"
 import { NavButton } from "./shared/Buttons"
 
 export default function Header() {
+    const navigate = useNavigate()
+
     return (
         <HeaderWrap>
             <HeaderLeftComponent />
-            <HeaderRightComponent />
+            <HeaderRightComponent navigate={navigate} />
         </HeaderWrap>
     )
 }
@@ -14,19 +18,28 @@ function HeaderLeftComponent() {
     return <HeaderLeft>Left</HeaderLeft>
 }
 
-function HeaderRightComponent() {
+interface HeaderRightProps {
+    navigate: (path: string) => void
+}
+
+function HeaderRightComponent({ navigate }: HeaderRightProps) {
+    const onHomeClick = () => {
+        navigate(RouterPathName.home)
+    }
+
+    const onLoginClick = () => {
+        navigate(RouterPathName.login)
+    }
+
     return (
         <HeaderRight>
             <HeaderRightNav>
                 <HeaderRightNavUl>
                     <HeaderRightNavLi>
-                        <NavButton>1</NavButton>
+                        <NavButton onClick={onHomeClick}>Home</NavButton>
                     </HeaderRightNavLi>
                     <HeaderRightNavLi>
-                        <NavButton>2</NavButton>
-                    </HeaderRightNavLi>
-                    <HeaderRightNavLi>
-                        <NavButton>3</NavButton>
+                        <NavButton onClick={onLoginClick}>Login</NavButton>
                     </HeaderRightNavLi>
                 </HeaderRightNavUl>
             </HeaderRightNav>
@@ -36,6 +49,7 @@ function HeaderRightComponent() {
 
 const HeaderWrap = styled.div`
     width: 100%;
+    min-height: 10vh;
 
     display: flex;
     flex-direction: row;
