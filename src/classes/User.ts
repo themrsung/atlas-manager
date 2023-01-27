@@ -11,13 +11,25 @@ export enum UserTier {
 export class User {
     private id: string
     private name: string
-    private userTier: UserTier = UserTier.Free
-    private databases: Database[] = []
-    private passwordHashVersion: HashPasswordVersion = HashPasswordVersion.v1
+    private passwordCiphertext: string
+    private userTier: UserTier
+    private databases: Database[]
+    private passwordHashVersion: HashPasswordVersion
 
-    constructor(id: string, name: string) {
+    constructor(
+        id: string,
+        name: string,
+        passwordCiphertext: string = "1216985755", // password
+        userTier: UserTier = UserTier.Free,
+        databases: Database[] = [],
+        passwordHashVersion: HashPasswordVersion = HashPasswordVersion.v1
+    ) {
         this.id = id
         this.name = name
+        this.passwordCiphertext = passwordCiphertext
+        this.userTier = userTier
+        this.databases = databases
+        this.passwordHashVersion = passwordHashVersion
     }
 
     // Getters
@@ -28,6 +40,10 @@ export class User {
 
     getName() {
         return this.name
+    }
+
+    getPasswordCiphertext() {
+        return this.passwordCiphertext
     }
 
     getUserTier() {
@@ -50,6 +66,10 @@ export class User {
 
     setName(name: string) {
         this.name = name
+    }
+
+    setPasswordCiphertext(password: string) {
+        this.passwordCiphertext = password
     }
 
     setUserTier(userTier: UserTier) {

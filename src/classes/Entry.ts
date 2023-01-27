@@ -1,12 +1,19 @@
 export class Entry {
     private id: string
     private name: string
-    private valuePerItem: number = 0
-    private quantity: number = 1
+    private valuePerItem: number
+    private quantity: number
 
-    constructor(id: string, name: string) {
+    constructor(
+        id: string,
+        name: string,
+        valuePerItem: number = 0,
+        quantity: number = 1
+    ) {
         this.id = id
         this.name = name
+        this.valuePerItem = valuePerItem
+        this.quantity = quantity
     }
 
     // Getters
