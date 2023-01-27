@@ -11,10 +11,10 @@ import Footer from "./Footer"
 import Header from "./Header"
 
 export enum RoutePathName {
-    home = "/",
-    landing = "/landing",
-    login = "/login",
-    register = "/register"
+    Home = "/",
+    Landing = "/landing",
+    Login = "/login",
+    Register = "/register"
 }
 
 export default function Router() {
@@ -23,11 +23,11 @@ export default function Router() {
             <Header />
             <PageBody>
                 <Routes>
-                    <Route path={RoutePathName.home} element={<Home />} />
-                    <Route path={RoutePathName.landing} element={<Landing />} />
-                    <Route path={RoutePathName.login} element={<Login />} />
+                    <Route path={RoutePathName.Home} element={<Home />} />
+                    <Route path={RoutePathName.Landing} element={<Landing />} />
+                    <Route path={RoutePathName.Login} element={<Login />} />
                     <Route
-                        path={RoutePathName.register}
+                        path={RoutePathName.Register}
                         element={<Register />}
                     />
                 </Routes>

@@ -2,7 +2,7 @@ import { RoutePathName } from "../components/Router"
 import { User } from "./User"
 
 export enum HashPasswordVersion {
-    v1 = "v1"
+    V1 = "v1"
 }
 
 class HashPassword {
@@ -22,10 +22,10 @@ class HashPassword {
 export class Auth {
     static hashPassword(
         input: string,
-        version: HashPasswordVersion = HashPasswordVersion.v1
+        version: HashPasswordVersion = HashPasswordVersion.V1
     ) {
         switch (version) {
-            case HashPasswordVersion.v1:
+            case HashPasswordVersion.V1:
                 return HashPassword.v1(input)
             default:
                 return HashPassword.v1(input)
@@ -36,7 +36,7 @@ export class Auth {
         const user = await Auth.getCurrentUser()
         if (user === null) {
             // User is not logged in, redirect to landing page
-            navigate(RoutePathName.landing)
+            navigate(RoutePathName.Landing)
         }
     }
 

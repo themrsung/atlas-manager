@@ -22,7 +22,7 @@ export class User {
         passwordCiphertext: string = "1216985755", // password
         userTier: UserTier = UserTier.Free,
         databases: Database[] = [],
-        passwordHashVersion: HashPasswordVersion = HashPasswordVersion.v1
+        passwordHashVersion: HashPasswordVersion = HashPasswordVersion.V1
     ) {
         this.id = id
         this.name = name

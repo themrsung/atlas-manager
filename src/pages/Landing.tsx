@@ -7,11 +7,11 @@ export default function Landing() {
     const navigate = useNavigate()
 
     const onSignUpClick = () => {
-        navigate(RoutePathName.register)
+        navigate(RoutePathName.Register)
     }
 
     const onLoginClick = () => {
-        navigate(RoutePathName.login)
+        navigate(RoutePathName.Login)
     }
 
     return (

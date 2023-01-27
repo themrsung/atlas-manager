@@ -24,11 +24,11 @@ interface HeaderRightProps {
 
 function HeaderRightComponent({ navigate }: HeaderRightProps) {
     const onHomeClick = () => {
-        navigate(RouterPathName.home)
+        navigate(RouterPathName.Home)
     }
 
     const onLoginClick = () => {
-        navigate(RouterPathName.login)
+        navigate(RouterPathName.Login)
     }
 
     return (
