@@ -1,7 +1,7 @@
-import { Database } from "./Database"
 import { User } from "./User"
 
-export class State {
+// AState for Atlas State
+export class AState {
     private users: User[]
 
     constructor(users: User[]) {
