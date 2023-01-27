@@ -1,3 +1,4 @@
+import { HashPasswordVersion } from "./Auth"
 import { Database } from "./Database"
 
 export enum UserTier {
@@ -12,6 +13,7 @@ export class User {
     private name: string
     private userTier: UserTier = UserTier.Free
     private databases: Database[] = []
+    private passwordHashVersion: HashPasswordVersion = HashPasswordVersion.v1
 
     constructor(id: string, name: string) {
         this.id = id
@@ -34,6 +36,10 @@ export class User {
 
     getDatabases() {
         return this.databases
+    }
+
+    getPasswordHashVersion() {
+        return this.passwordHashVersion
     }
 
     // Setters
@@ -62,5 +68,9 @@ export class User {
         this.databases = this.databases.filter(
             (db) => db.getId() !== databaseId
         )
+    }
+
+    setPasswordHashVersion(version: HashPasswordVersion) {
+        this.passwordHashVersion = version
     }
 }

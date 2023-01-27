@@ -2,8 +2,8 @@ export enum HashPasswordVersion {
     v1 = "v1"
 }
 
-class AuthInternal {
-    static hashPasswordV1(input: string) {
+class HashPassword {
+    static v1(input: string) {
         let hash = 0
 
         for (let i = 0; i < input.length; i++) {
@@ -17,12 +17,15 @@ class AuthInternal {
 }
 
 export class Auth {
-    static hashPassword(input: string, version: HashPasswordVersion) {
+    static hashPassword(
+        input: string,
+        version: HashPasswordVersion = HashPasswordVersion.v1
+    ) {
         switch (version) {
             case HashPasswordVersion.v1:
-                return AuthInternal.hashPasswordV1(input)
+                return HashPassword.v1(input)
             default:
-                return AuthInternal.hashPasswordV1(input)
+                return HashPassword.v1(input)
         }
     }
 }
