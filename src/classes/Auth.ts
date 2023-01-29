@@ -1,5 +1,5 @@
 import { RoutePathName } from "../components/Router"
-import { User } from "./User"
+import { State } from "./State"
 
 export enum HashPasswordVersion {
     V1 = "v1"
@@ -32,16 +32,14 @@ export class Auth {
         }
     }
 
-    static async onRestrictedPageLoad(navigate: (path: string) => void) {
-        const user = await Auth.getCurrentUser()
+    static async onRestrictedPageLoad(
+        navigate: (path: string) => void,
+        state: State
+    ) {
+        const user = await state.getCurrentUser()
         if (user === null) {
             // User is not logged in, redirect to landing page
             navigate(RoutePathName.Landing)
         }
-    }
-
-    static async getCurrentUser() {
-        return new User("admin", "admin")
-        // return null
     }
 }
