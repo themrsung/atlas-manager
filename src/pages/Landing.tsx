@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { RoutePathName } from "../components/Router"
+import { RouterPathName } from "../components/Router"
 import { SecondaryButton } from "../components/shared/Buttons"
 
 export default function Landing() {
     const navigate = useNavigate()
 
     const onSignUpClick = () => {
-        navigate(RoutePathName.Register)
+        navigate(RouterPathName.Register)
     }
 
     const onLoginClick = () => {
-        navigate(RoutePathName.Login)
+        navigate(RouterPathName.Login)
     }
 
     return (

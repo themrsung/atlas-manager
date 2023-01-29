@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { RoutePathName as RouterPathName } from "./Router"
+import { RouterPathName } from "./Router"
 import { NavButton } from "./shared/Buttons"
 
 export default function Header() {
@@ -27,6 +27,10 @@ function HeaderRightComponent({ navigate }: HeaderRightProps) {
         navigate(RouterPathName.Home)
     }
 
+    const onManageClick = () => {
+        navigate(RouterPathName.Manage)
+    }
+
     const onLoginClick = () => {
         navigate(RouterPathName.Login)
     }
@@ -37,6 +41,9 @@ function HeaderRightComponent({ navigate }: HeaderRightProps) {
                 <HeaderRightNavUl>
                     <HeaderRightNavLi>
                         <NavButton onClick={onHomeClick}>Home</NavButton>
+                    </HeaderRightNavLi>
+                    <HeaderRightNavLi>
+                        <NavButton onClick={onManageClick}>Manage</NavButton>
                     </HeaderRightNavLi>
                     <HeaderRightNavLi>
                         <NavButton onClick={onLoginClick}>Login</NavButton>

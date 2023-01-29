@@ -1,3 +1,4 @@
+import axios from "axios"
 import { User } from "./User"
 
 // 이거 클라이언트니까 아마 state는 없애는 게 좋을 듯
@@ -35,24 +36,28 @@ export class State {
 
     getStrippedDownStateOfSingleUser(user: User) {
         const jsonifiedThis = JSON.stringify(this)
-        const parsedCloneOfThis = JSON.parse(jsonifiedThis)
+        const parsedCloneOfThis = JSON.parse(jsonifiedThis) as State
+        console.log(parsedCloneOfThis)
 
-        parsedCloneOfThis.users = parsedCloneOfThis.users(
-            (u: User) => u === user
+        parsedCloneOfThis.setUsers(
+            parsedCloneOfThis.getUsers().filter((u: User) => u === user)
         )
         return parsedCloneOfThis
     }
 
-    pushStrippedDownStateOfSingleUserToServer(user: User) {
-        return State.pushToServer(this.getStrippedDownStateOfSingleUser(user))
+    async pushStrippedDownStateOfSingleUserToServer(user: User) {
+        return await State.pushToServer(
+            this.getStrippedDownStateOfSingleUser(user)
+        )
     }
 
-    static pushToServer(state: State) {
-        // patch data
+    static async pushToServer(state: State) {
+        const res = await axios.patch("http://localhost:5000/state", state)
+        return res.data
     }
 
-    static pullFromServer() {
-        // fetch data
-        return new State([])
+    static async pullFromServer() {
+        const res = await axios.get("http://localhost:5000/state")
+        return res.data as State
     }
 }

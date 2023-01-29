@@ -1,4 +1,4 @@
-import { RoutePathName } from "../components/Router"
+import { RouterPathName } from "../components/Router"
 import { State } from "./State"
 
 export enum HashPasswordVersion {
@@ -39,7 +39,7 @@ export class Auth {
         const user = await state.getCurrentUser()
         if (user === null) {
             // User is not logged in, redirect to landing page
-            navigate(RoutePathName.Landing)
+            navigate(RouterPathName.Landing)
         }
     }
 }

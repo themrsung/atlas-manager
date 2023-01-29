@@ -4,15 +4,17 @@ import styled from "styled-components"
 import Home from "../pages/Home"
 import Landing from "../pages/Landing"
 import Login from "../pages/Login"
+import Manage from "../pages/Manage"
 import Register from "../pages/Register"
 import Footer from "./Footer"
 import Header from "./Header"
 
-export enum RoutePathName {
+export enum RouterPathName {
     Home = "/",
     Landing = "/landing",
     Login = "/login",
-    Register = "/register"
+    Register = "/register",
+    Manage = "/manage"
 }
 
 export default function Router() {
@@ -21,13 +23,17 @@ export default function Router() {
             <Header />
             <PageBody>
                 <Routes>
-                    <Route path={RoutePathName.Home} element={<Home />} />
-                    <Route path={RoutePathName.Landing} element={<Landing />} />
-                    <Route path={RoutePathName.Login} element={<Login />} />
+                    <Route path={RouterPathName.Home} element={<Home />} />
                     <Route
-                        path={RoutePathName.Register}
+                        path={RouterPathName.Landing}
+                        element={<Landing />}
+                    />
+                    <Route path={RouterPathName.Login} element={<Login />} />
+                    <Route
+                        path={RouterPathName.Register}
                         element={<Register />}
                     />
+                    <Route path={RouterPathName.Manage} element={<Manage />} />
                 </Routes>
             </PageBody>
             <Footer />
