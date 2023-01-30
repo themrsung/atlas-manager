@@ -25,6 +25,16 @@ export class Database {
         return this.entries
     }
 
+    getTotalValue() {
+        let value = 0
+
+        this.entries.forEach((e) => {
+            value += e.getTotalValue()
+        })
+
+        return value
+    }
+
     // Setters
 
     setId(id: string) {

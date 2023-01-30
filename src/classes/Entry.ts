@@ -99,4 +99,16 @@ export class Entry {
             this.customProperties.push(property)
         }
     }
+
+    removeCustomProperty(property: CustomEntryProperty) {
+        this.customProperties = this.customProperties.filter(
+            (cp) => cp !== property
+        )
+    }
+
+    removeCustomPropertyByKey(key: string) {
+        this.customProperties = this.customProperties.filter(
+            (cp) => cp.key !== key
+        )
+    }
 }
