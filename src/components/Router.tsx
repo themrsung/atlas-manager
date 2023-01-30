@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router"
 import { BrowserRouter } from "react-router-dom"
 import styled from "styled-components"
+import { State } from "../classes/State"
 import Home from "../pages/Home"
 import Landing from "../pages/Landing"
 import Login from "../pages/Login"
@@ -17,13 +18,18 @@ export enum RouterPathName {
     Manage = "/manage"
 }
 
-export default function Router() {
+export default function Router(props: { state: State }) {
+    const state: State = props.state
+
     return (
         <BrowserRouter>
             <Header />
             <PageBody>
                 <Routes>
-                    <Route path={RouterPathName.Home} element={<Home />} />
+                    <Route
+                        path={RouterPathName.Home}
+                        element={<Home state={state} />}
+                    />
                     <Route
                         path={RouterPathName.Landing}
                         element={<Landing />}

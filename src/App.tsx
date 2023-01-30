@@ -1,31 +1,22 @@
-import React, { useState } from "react"
+import React from "react"
 import "./App.css"
 import { State } from "./classes/State"
 import { User } from "./classes/User"
 import Router from "./components/Router"
 
-// function App() {
-//     const [state, setState] = useState(new State([]))
-
-//     console.log(state)
-//     console.log("users", state.getUsers())
-//     state.setUsers([new User("test", "test")])
-//     console.log(state)
-
-//     return (
-//         <>
-//             <Router />
-//         </>
-//     )
-// }
-
+export enum RouterPathName {
+    Home = "/",
+    Landing = "/landing",
+    Login = "/login",
+    Register = "/register",
+    Manage = "/manage"
+}
 class App extends React.Component {
-    state = new State([])
+    state: State = new State([], {} as User)
 
     render() {
-        this.state.setCurrentUser(new User("name", "nme"))
         console.log(this.state)
-        return <Router />
+        return <Router state={this.state} />
     }
 }
 
