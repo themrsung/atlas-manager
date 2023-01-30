@@ -1,4 +1,4 @@
-import { Entry } from "../Entry"
+import { CustomEntryProperty, Entry } from "../Entry"
 
 export class Stock extends Entry {
     private stockCode: string
@@ -8,9 +8,10 @@ export class Stock extends Entry {
         name: string,
         valuePerItem: number = 5000,
         quantity: number = 1000,
-        stockCode: string = "000000"
+        stockCode: string = "000000",
+        customProperties: CustomEntryProperty[] = []
     ) {
-        super(id, name, valuePerItem, quantity)
+        super(id, name, valuePerItem, quantity, customProperties)
         this.stockCode = stockCode
     }
 

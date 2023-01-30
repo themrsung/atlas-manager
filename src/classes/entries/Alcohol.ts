@@ -1,4 +1,4 @@
-import { Entry } from "../Entry"
+import { CustomEntryProperty, Entry } from "../Entry"
 
 export class Alcohol extends Entry {
     private leftover: number
@@ -8,9 +8,10 @@ export class Alcohol extends Entry {
         name: string,
         valuePerItem: number = 500000,
         quantity: number = 1,
-        leftover: number = 1
+        leftover: number = 1,
+        customProperties: CustomEntryProperty[] = []
     ) {
-        super(id, name, valuePerItem, quantity)
+        super(id, name, valuePerItem, quantity, customProperties)
         this.leftover = leftover
     }
 
