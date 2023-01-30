@@ -37,7 +37,6 @@ export class Auth {
         state: State
     ) {
         const user = state.getCurrentUser()
-        console.log(user)
         if (Object.keys(user).length < 1) {
             // User is not logged in, redirect to landing page
             navigate(RouterPathName.Landing)

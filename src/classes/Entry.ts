@@ -49,7 +49,7 @@ export class Entry {
         return this.customProperties.filter((cp) => cp.key === key)[0]
     }
 
-    getKeys() {
+    getCustomKeys() {
         let keys: string[] = []
 
         this.customProperties.forEach((cp) => {
@@ -92,7 +92,7 @@ export class Entry {
     }
 
     setCustomProperty(property: CustomEntryProperty) {
-        if (this.getKeys().includes(property.key)) {
+        if (this.getCustomKeys().includes(property.key)) {
             // Key exists, overwrite value
             this.getCustomPropertyByKey(property.key).value = property.value
         } else {

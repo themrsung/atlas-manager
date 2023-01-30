@@ -54,6 +54,10 @@ export class User {
         return this.databases
     }
 
+    getDatabaseById(id: string) {
+        return this.databases.filter((db) => db.getId() === id)[0]
+    }
+
     getPasswordHashVersion() {
         return this.passwordHashVersion
     }

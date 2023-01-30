@@ -39,7 +39,10 @@ export default function Router(props: { state: State }) {
                         path={RouterPathName.Register}
                         element={<Register />}
                     />
-                    <Route path={RouterPathName.Manage} element={<Manage />} />
+                    <Route
+                        path={RouterPathName.Manage}
+                        element={<Manage state={state} />}
+                    />
                 </Routes>
             </PageBody>
             <Footer />
