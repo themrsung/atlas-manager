@@ -106,4 +106,8 @@ const LandingRightButtonBox = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: right;
+
+    & > button {
+        margin-left: 8%;
+    }
 `

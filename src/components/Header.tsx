@@ -15,7 +15,11 @@ export default function Header() {
 }
 
 function HeaderLeftComponent() {
-    return <HeaderLeft>Left</HeaderLeft>
+    return (
+        <HeaderLeft>
+            <HeaderLeftTitle>Atlas</HeaderLeftTitle>
+        </HeaderLeft>
+    )
 }
 
 interface HeaderRightProps {
@@ -66,12 +70,16 @@ const HeaderWrap = styled.div`
 
 const HeaderLeft = styled.div`
     margin-right: auto;
+    padding-left: 3%;
 
     display: flex;
 `
 
+const HeaderLeftTitle = styled.h1``
+
 const HeaderRight = styled.div`
     margin-left: auto;
+    padding-right: 3%;
 
     display: flex;
 `
@@ -95,4 +103,5 @@ const HeaderRightNavUl = styled.ul`
 
 const HeaderRightNavLi = styled.li`
     margin: 0;
+    padding-right: 5%;
 `

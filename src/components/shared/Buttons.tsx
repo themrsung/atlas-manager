@@ -6,6 +6,7 @@ const sharedButtonProperties = `
     border: 2px solid;
     border-radius: 3px;
     transition: linear 0.2s;
+    white-space: nowrap;
 `
 
 export const NavButton = styled.button`
