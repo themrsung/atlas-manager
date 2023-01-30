@@ -14,6 +14,10 @@ class App extends React.Component {
                 new Entry("entry1", "Foo", 123, 1010, [
                     { key: "year", value: "2020" },
                     { key: "quality", value: "good" }
+                ]),
+                new Entry("entry2", "Bar", 2030, 2020, [
+                    { key: "year", value: "2023" },
+                    { key: "quality", value: "not good" }
                 ])
             ]),
             new Database("two", "Two")

@@ -21,6 +21,14 @@ export default function Manage(props: { state: State }) {
         Auth.onRestrictedPageLoad(navigate, state)
     }, [])
 
+    useEffect(() => {
+        if (state.getCurrentUser().getDatabases().length > 0) {
+            setCurrentDatabaseId(
+                state.getCurrentUser().getDatabases()[0].getId()
+            )
+        }
+    }, [])
+
     return (
         <ManageWrap>
             <ManageLeft></ManageLeft>
