@@ -34,30 +34,30 @@ export class State {
 
     // API
 
-    getStrippedDownStateOfSingleUser(user: User) {
-        const jsonifiedThis = JSON.stringify(this)
-        const parsedCloneOfThis = JSON.parse(jsonifiedThis) as State
-        console.log(parsedCloneOfThis)
+    // getStrippedDownStateOfSingleUser(user: User) {
+    //     const jsonifiedThis = JSON.stringify(this)
+    //     const parsedCloneOfThis = JSON.parse(jsonifiedThis) as State
+    //     console.log(parsedCloneOfThis)
 
-        parsedCloneOfThis.setUsers(
-            parsedCloneOfThis.getUsers().filter((u: User) => u === user)
-        )
-        return parsedCloneOfThis
+    //     parsedCloneOfThis.setUsers(
+    //         parsedCloneOfThis.getUsers().filter((u: User) => u === user)
+    //     )
+    //     return parsedCloneOfThis
+    // }
+
+    // async pushStrippedDownStateOfSingleUserToServer(user: User) {
+    //     return await State.pushToServer(
+    //         this.getStrippedDownStateOfSingleUser(user)
+    //     )
+    // }
+
+    async pushToServer() {
+        // const res = await axios.patch("http://localhost:5000/state", state)
+        // return res.data
     }
 
-    async pushStrippedDownStateOfSingleUserToServer(user: User) {
-        return await State.pushToServer(
-            this.getStrippedDownStateOfSingleUser(user)
-        )
-    }
-
-    static async pushToServer(state: State) {
-        const res = await axios.patch("http://localhost:5000/state", state)
-        return res.data
-    }
-
-    static async pullFromServer() {
-        const res = await axios.get("http://localhost:5000/state")
-        return res.data as State
+    async pullFromServer() {
+        // const res = await axios.get("http://localhost:5000/state")
+        // return res.data as State
     }
 }
