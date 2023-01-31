@@ -1,4 +1,4 @@
-import { HashPasswordVersion } from "./Auth"
+import { Auth, HashPasswordVersion } from "./Auth"
 import { Database } from "./Database"
 
 export enum UserTier {
@@ -70,6 +70,10 @@ export class User {
 
     setName(name: string) {
         this.name = name
+    }
+
+    setPassword(password: string, hashVersion: HashPasswordVersion) {
+        this.passwordCiphertext = Auth.hashPassword(password, hashVersion)
     }
 
     setPasswordCiphertext(password: string) {
