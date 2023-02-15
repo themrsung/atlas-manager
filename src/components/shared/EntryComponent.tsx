@@ -115,7 +115,9 @@ function EntryProperty(props: {
             }}
         >
             {!isEditingProperty ? (
-                <EntryPropertyP>{value}</EntryPropertyP>
+                <EntryPropertyP>
+                    {key}: {value}
+                </EntryPropertyP>
             ) : (
                 <EntryPropertyInput
                     value={newPropertyValue}
@@ -139,17 +141,17 @@ const EntryPropertyWrap = styled.div`
     align-items: center;
     justify-content: stretch;
 
-    width: 110px;
+    width: 210px;
 
     margin-right: 1%;
 `
 
 const EntryPropertyP = styled.p`
-    width: 100px;
+    width: 200px;
 `
 
 const EntryPropertyInput = styled.input`
-    width: 100px;
+    width: 200px;
 `
 const EntryPropertyEditButton = styled.button`
     width: 10px;
