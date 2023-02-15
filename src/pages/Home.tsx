@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { Auth } from "../classes/Auth"
 import { State } from "../classes/State"
+import { RouterPathName } from "../components/Router"
 
 export default function Home(props: { state: State }) {
     const state: State = props.state
@@ -30,7 +31,7 @@ export default function Home(props: { state: State }) {
                     })}
                 <button
                     onClick={() => {
-                        navigate("manage")
+                        navigate(RouterPathName.Manage)
                     }}
                 >
                     Manage Databases

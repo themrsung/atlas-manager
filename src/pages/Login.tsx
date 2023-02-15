@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { Auth } from "../classes/Auth"
 import { State } from "../classes/State"
@@ -9,10 +10,12 @@ import {
     FormLabeledInputDiv,
     FormTitle
 } from "../components/forms/Form"
-import { PrimaryButton } from "../components/shared/Buttons"
+import { RouterPathName } from "../components/Router"
+import { PrimaryButton, SecondaryButton } from "../components/shared/Buttons"
 
 export default function Login(props: { state: State }) {
     const state = props.state
+    const navigate = useNavigate()
 
     const [id, setId] = useState<string>("")
     const [password, setPassword] = useState<string>("")
@@ -22,10 +25,12 @@ export default function Login(props: { state: State }) {
 
         if (!Auth.login(state, id, password)) {
             // Login Failed
+            console.log("test")
             return
         }
 
         // Login Success
+        navigate(RouterPathName.Home)
     }
 
     return (
@@ -35,15 +40,33 @@ export default function Login(props: { state: State }) {
 
                 <FormLabeledInputDiv>
                     <FormLabel>ID</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        value={id}
+                        onChange={(e) => {
+                            setId(e.currentTarget.value)
+                        }}
+                    />
                 </FormLabeledInputDiv>
 
                 <FormLabeledInputDiv>
                     <FormLabel>Password</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.currentTarget.value)
+                        }}
+                    />
                 </FormLabeledInputDiv>
                 <PrimaryButton type="submit">Login</PrimaryButton>
             </Form>
+            <SecondaryButton
+                onClick={() => {
+                    navigate(RouterPathName.Register)
+                }}
+            >
+                Register
+            </SecondaryButton>
         </LoginWrap>
     )
 }

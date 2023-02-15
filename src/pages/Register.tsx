@@ -45,12 +45,23 @@ export default function Register(props: { state: State }) {
 
                 <FormLabeledInputDiv>
                     <FormLabel>ID</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        value={id}
+                        onChange={(e) => {
+                            setId(e.currentTarget.value)
+                        }}
+                    />
                 </FormLabeledInputDiv>
 
                 <FormLabeledInputDiv>
                     <FormLabel>Password</FormLabel>
-                    <FormInput />
+                    <FormInput
+                        type="password"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.currentTarget.value)
+                        }}
+                    />
                 </FormLabeledInputDiv>
                 <PrimaryButton type="submit">Register</PrimaryButton>
             </Form>

@@ -27,9 +27,9 @@ export class Auth {
     ) {
         switch (version) {
             case HashPasswordVersion.V1:
-                return HashPassword.v1(input)
+                return `${HashPassword.v1(input)}`
             default:
-                return HashPassword.v1(input)
+                return `${HashPassword.v1(input)}`
         }
     }
 
@@ -45,17 +45,18 @@ export class Auth {
     }
 
     static login(state: State, id: string, password: string) {
-        if (Auth.validatePassword(state, id, password)) {
-            // Login success
-            return true
+        if (!Auth.validatePassword(state, id, password)) {
+            // Login failed
+            return false
         }
 
-        // Login failed
-        return false
+        // Login success
+        return true
     }
 
-    static validatePassword(state: State, id: string, password: string) {
-        state.getUsers().forEach((user) => {
+    static async validatePassword(state: State, id: string, password: string) {
+        for (let i = 0; i < state.getUsers().length; i++) {
+            const user = state.getUsers()[i]
             if (
                 user.getId() === id &&
                 user.getPasswordCiphertext() ===
@@ -63,7 +64,7 @@ export class Auth {
             ) {
                 return true
             }
-        })
+        }
 
         return false
     }
