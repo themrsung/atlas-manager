@@ -95,6 +95,20 @@ function ManageHeader(props: {
                 <ManageHeaderDatabaseSelectLabel>
                     Current Database
                 </ManageHeaderDatabaseSelectLabel>
+                <div>
+                    {/* @TODO please fix this */}
+                    <button
+                        onClick={async () => {
+                            const dbId = currentDatabaseId
+                            setCurrentDatabaseId("")
+                            setTimeout(() => {
+                                setCurrentDatabaseId(dbId)
+                            }, 10)
+                        }}
+                    >
+                        refresh
+                    </button>
+                </div>
                 <ManageHeaderDatabaseSelect
                     name="Database"
                     onChange={onCurrentDatabaseSelect}
@@ -149,13 +163,14 @@ function ManageConsole(props: {
 
     return currentDatabaseId !== "" ? (
         <ManageConsoleWrap>
-            {state
-                .getCurrentUser()
-                .getDatabaseById(currentDatabaseId)
-                .getEntries()
-                .map((e) => {
-                    return <EntryComponent key={e.getId()} entry={e} />
-                })}
+            {currentDatabaseId !== "" &&
+                state
+                    .getCurrentUser()
+                    .getDatabaseById(currentDatabaseId)
+                    .getEntries()
+                    .map((e) => {
+                        return <EntryComponent key={e.getId()} entry={e} />
+                    })}
         </ManageConsoleWrap>
     ) : (
         <ManageConsoleWrap>not found</ManageConsoleWrap>

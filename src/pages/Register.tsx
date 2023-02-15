@@ -1,5 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
+import { Auth, HashPasswordVersion } from "../classes/Auth"
+import { State } from "../classes/State"
+import { User, UserTier } from "../classes/User"
 import {
     Form,
     FormInput,
@@ -9,9 +12,30 @@ import {
 } from "../components/forms/Form"
 import { PrimaryButton } from "../components/shared/Buttons"
 
-export default function Register() {
+export default function Register(props: { state: State }) {
+    const state = props.state
+
+    const [id, setId] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+
     const onRegisterFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        const user = new User(
+            id,
+            "name",
+            Auth.hashPassword(password, HashPasswordVersion.V1),
+            UserTier.Free,
+            [],
+            HashPasswordVersion.V1
+        )
+
+        if (!Auth.addUser(state, user)) {
+            // Register Failed
+            return
+        }
+
+        // Register Success
     }
 
     return (

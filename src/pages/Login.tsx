@@ -1,5 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
+import { Auth } from "../classes/Auth"
+import { State } from "../classes/State"
 import {
     Form,
     FormInput,
@@ -9,9 +11,21 @@ import {
 } from "../components/forms/Form"
 import { PrimaryButton } from "../components/shared/Buttons"
 
-export default function Login() {
+export default function Login(props: { state: State }) {
+    const state = props.state
+
+    const [id, setId] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+
     const onLoginFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        if (!Auth.login(state, id, password)) {
+            // Login Failed
+            return
+        }
+
+        // Login Success
     }
 
     return (

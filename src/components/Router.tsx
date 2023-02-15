@@ -34,10 +34,13 @@ export default function Router(props: { state: State }) {
                         path={RouterPathName.Landing}
                         element={<Landing />}
                     />
-                    <Route path={RouterPathName.Login} element={<Login />} />
+                    <Route
+                        path={RouterPathName.Login}
+                        element={<Login state={state} />}
+                    />
                     <Route
                         path={RouterPathName.Register}
-                        element={<Register />}
+                        element={<Register state={state} />}
                     />
                     <Route
                         path={RouterPathName.Manage}

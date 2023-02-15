@@ -1,5 +1,6 @@
 import { RouterPathName } from "../components/Router"
 import { State } from "./State"
+import { User } from "./User"
 
 export enum HashPasswordVersion {
     V1 = "v1"
@@ -41,5 +42,38 @@ export class Auth {
             // User is not logged in, redirect to landing page
             navigate(RouterPathName.Landing)
         }
+    }
+
+    static login(state: State, id: string, password: string) {
+        if (Auth.validatePassword(state, id, password)) {
+            // Login success
+            return true
+        }
+
+        // Login failed
+        return false
+    }
+
+    static validatePassword(state: State, id: string, password: string) {
+        state.getUsers().forEach((user) => {
+            if (
+                user.getId() === id &&
+                user.getPasswordCiphertext() ===
+                    Auth.hashPassword(password, user.getPasswordHashVersion())
+            ) {
+                return true
+            }
+        })
+
+        return false
+    }
+
+    static addUser(state: State, user: User) {
+        let users = state.getUsers()
+        users.push(user)
+
+        state.setUsers(users)
+
+        return true
     }
 }
