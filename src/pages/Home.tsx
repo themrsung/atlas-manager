@@ -13,9 +13,12 @@ export default function Home(props: { state: State }) {
         Auth.onRestrictedPageLoad(navigate, state)
     }, [])
 
-    return (
+    return Object.keys(state.getCurrentUser()).length > 0 ? (
         <HomeWrap>
-            <div>
+            <HomeHeader>
+                <h3>Current User: {state.getCurrentUser().getId()}</h3>
+            </HomeHeader>
+            <HomeBody>
                 <p>current user: {state.getCurrentUser().getId()}</p>
                 <p>databases:</p>
                 {state
@@ -36,9 +39,39 @@ export default function Home(props: { state: State }) {
                 >
                     Manage Databases
                 </button>
-            </div>
+            </HomeBody>
         </HomeWrap>
+    ) : (
+        <>Not logged in</>
     )
 }
 
 const HomeWrap = styled.div``
+
+const HomeHeader = styled.div`
+    width: 100%;
+    height: 10vh;
+
+    background-color: red;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+const HomeBody = styled.div`
+    margin: auto;
+
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+
+    & > * {
+        margin-right: auto;
+    }
+`

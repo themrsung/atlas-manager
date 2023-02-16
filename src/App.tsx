@@ -21,7 +21,7 @@ class App extends React.Component {
         ]),
         new Database("two", "Two")
     ])
-    state: State = new State([this.__user], this.__user)
+    state: State = new State([this.__user], {} as User)
 
     render() {
         return <Router state={this.state} />

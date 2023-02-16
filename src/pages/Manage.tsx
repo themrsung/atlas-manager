@@ -10,6 +10,7 @@ import { State } from "../classes/State"
 import { Auth } from "../classes/Auth"
 import styled from "styled-components"
 import EntryComponent from "../components/shared/EntryComponent"
+import { User } from "../classes/User"
 
 export default function Manage(props: { state: State }) {
     const state: State = props.state
@@ -22,14 +23,16 @@ export default function Manage(props: { state: State }) {
     }, [])
 
     useEffect(() => {
-        if (state.getCurrentUser().getDatabases().length > 0) {
-            setCurrentDatabaseId(
-                state.getCurrentUser().getDatabases()[0].getId()
-            )
+        if (Object.keys(state.getCurrentUser()).length > 0) {
+            if (state.getCurrentUser().getDatabases().length > 0) {
+                setCurrentDatabaseId(
+                    state.getCurrentUser().getDatabases()[0].getId()
+                )
+            }
         }
     }, [])
 
-    return (
+    return Object.keys(state.getCurrentUser()).length > 0 ? (
         <ManageWrap>
             <ManageLeft></ManageLeft>
             <ManageRight>
@@ -45,6 +48,8 @@ export default function Manage(props: { state: State }) {
                 />
             </ManageRight>
         </ManageWrap>
+    ) : (
+        <>Not logged in</>
     )
 }
 

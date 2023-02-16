@@ -51,6 +51,9 @@ export class Auth {
         }
 
         // Login success
+        state.setCurrentUser(
+            state.getUsers().filter((user) => user.getId() === id)[0]
+        )
         return true
     }
 
@@ -67,6 +70,10 @@ export class Auth {
         }
 
         return false
+    }
+
+    static logout(state: State) {
+        state.setCurrentUser({} as User)
     }
 
     static addUser(state: State, user: User) {
