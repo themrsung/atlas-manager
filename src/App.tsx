@@ -1,31 +1,26 @@
 import React from "react"
+import logo from "./logo.svg"
 import "./App.css"
-import { Database } from "./classes/Database"
-import { Entry } from "./classes/Entry"
-import { State } from "./classes/State"
-import { User, UserTier } from "./classes/User"
-import Router from "./components/Router"
-class App extends React.Component {
-    // state: State = new State([], {} as User)
 
-    __user: User = new User("admin", "test", "1216985755", UserTier.Admin, [
-        new Database("one", "One", [
-            new Entry("entry1", "Foo", 123, 1010, [
-                { key: "year", value: "2020" },
-                { key: "quality", value: "good" }
-            ]),
-            new Entry("entry2", "Bar", 2030, 2020, [
-                { key: "year", value: "2023" },
-                { key: "quality", value: "not good" }
-            ])
-        ]),
-        new Database("two", "Two")
-    ])
-    state: State = new State([this.__user], {} as User)
-
-    render() {
-        return <Router state={this.state} />
-    }
+function App() {
+    return (
+        <div className="App">
+            <header className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <p>
+                    Edit <code>src/App.tsx</code> and save to reload.
+                </p>
+                <a
+                    className="App-link"
+                    href="https://reactjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Learn React
+                </a>
+            </header>
+        </div>
+    )
 }
 
 export default App
