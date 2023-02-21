@@ -1,7 +1,7 @@
 import AtlasClientState from "../classes/AtlasClientState"
 import ClientStateTree from "../components/console/ClientStateTree"
 import DatabaseManager from "../components/console/DatabaseManager"
-import { StyleConventions } from "../style/StyleConventions"
+import StyleConventions from "../style/StyleConventions"
 
 export default function Console(props: { state: AtlasClientState }) {
     const state = props.state

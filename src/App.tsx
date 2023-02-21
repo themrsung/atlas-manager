@@ -5,7 +5,7 @@ import Database from "./classes/Database"
 import Entry from "./classes/Entry"
 import EntryProperty from "./classes/EntryProperty"
 import Router from "./components/Router"
-import { StyleConventions } from "./style/StyleConventions"
+import StyleConventions from "./style/StyleConventions"
 
 class App extends React.Component {
     state: AtlasClientState = new AtlasClientState(this)

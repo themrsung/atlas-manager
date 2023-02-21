@@ -3,7 +3,7 @@ import AtlasClientState from "../../classes/AtlasClientState"
 import Database from "../../classes/Database"
 import EntryProperty from "../../classes/EntryProperty"
 import S from "../../style/components/console/DatabaseManagerStyles"
-import { StyleConventions } from "../../style/StyleConventions"
+import StyleConventions from "../../style/StyleConventions"
 
 export default function DatabaseManager(props: { database: Database }) {
     const database: Database = props.database
