@@ -58,7 +58,7 @@ export default class Entry {
     // prettier-ignore
     getProperties() { return this.properties }
 
-    // Contingency getter in case two or more properties with same key exist..
+    // Contingency getter in case two or more properties with same key exist.
     // prettier-ignore
     getPropertiesByKey(key: string) { return this.getProperties().filter(property => property.getKey() === key) }
 
@@ -68,7 +68,7 @@ export default class Entry {
 
     // Returns all properties with given value.
     // prettier-ignore
-    getPropertyByValue(value: any) { return this.getProperties().filter(property => property.getValue() === value) }
+    getPropertiesByValue(value: any) { return this.getProperties().filter(property => property.getValue() === value) }
 
     // Destructive action, avoid if possible.
     setProperties(properties: EntryProperty[]) {
