@@ -13,6 +13,7 @@ class App extends React.Component {
     render() {
         return (
             <StyleConventions.GlobalStyleWrap>
+                버튼 왼쪽부터 오른쪽으로 하나씩 눌러보세요!
                 <button
                     onClick={() => {
                         this.state.addDatabase(new Database(this)).setId("one")
@@ -90,6 +91,7 @@ class App extends React.Component {
                 >
                     add property3
                 </button>
+                표에 있는 값을 누르면 수정됩니다
                 <Router state={this.state} />
             </StyleConventions.GlobalStyleWrap>
         )
