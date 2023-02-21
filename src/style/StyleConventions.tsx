@@ -10,10 +10,22 @@ export class StyleConventions {
     static warningColor: string = "#ffbd59"
     static errorColor: string = "#ff1100"
 
+    //
+    // GLOBAL STYLE
+    //
+
+    static GlobalStyleWrap = styled.div`
+        color: ${StyleConventions.blackTextColor};
+    `
+
+    //
+    // BUTTONS
+    //
+
     static __sharedButtonProperties = `
         border-width: 2px;
         border-style: solid;
-        border-radius: 1%;
+        border-radius: 4px;
         transition: linear 0.2s;
     `
 
@@ -60,7 +72,7 @@ export class StyleConventions {
         background-color: transparent;
 
         &:hover {
-            color: ${StyleConventions.blackTextColor};
+            color: ${StyleConventions.whiteTextColor};
             background-color: ${StyleConventions.warningColor};
     `
 

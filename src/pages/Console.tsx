@@ -23,6 +23,9 @@ export default function Console(props: { state: AtlasClientState }) {
             <StyleConventions.LargeSecondaryButton>
                 Large Secondary
             </StyleConventions.LargeSecondaryButton>
+            <StyleConventions.LargeWarningButton>
+                Large Warning
+            </StyleConventions.LargeWarningButton>
         </>
     )
 }
