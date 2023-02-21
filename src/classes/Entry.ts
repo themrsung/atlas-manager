@@ -64,7 +64,7 @@ export default class Entry {
 
     // Conventional getter, returns first property matching key.
     // prettier-ignore
-    getPropertyByKey(key: string) { return this.getPropertiesByKey(id)[0] }
+    getPropertyByKey(key: string) { return this.getPropertiesByKey(key)[0] }
 
     // Returns all properties with given value.
     // prettier-ignore
@@ -82,6 +82,7 @@ export default class Entry {
         properties.push(property)
 
         this.setProperties(properties)
+        return property
     }
 
     // Removes all instances of given property or properties

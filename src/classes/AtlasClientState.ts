@@ -60,6 +60,7 @@ export default class AtlasClientState {
         databases.push(database)
 
         this.setDatabases(databases)
+        return database
     }
 
     // Removes all instances of given database or databases.

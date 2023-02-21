@@ -1,5 +1,12 @@
 import AtlasClientState from "../classes/AtlasClientState"
+import ClientStateTree from "../components/console/ClientStateTree"
 
 export default function Console(props: { state: AtlasClientState }) {
-    return <></>
+    const state = props.state
+
+    return (
+        <>
+            <ClientStateTree state={state} />
+        </>
+    )
 }

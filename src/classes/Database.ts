@@ -1,9 +1,8 @@
 import Entry from "./Entry"
 
 export default class Database {
-    constructor(reactComponent: React.Component, entries: Entry[]) {
+    constructor(reactComponent: React.Component) {
         this.reactComponent = reactComponent
-        this.entries = entries
     }
 
     // React Component
@@ -53,7 +52,7 @@ export default class Database {
 
     // Entries
     // All entries within this database are stored here.
-    private entries: Entry[]
+    private entries: Entry[] = []
 
     // prettier-ignore
     getEntries() { return this.entries }
@@ -78,6 +77,7 @@ export default class Database {
         entries.push(entry)
 
         this.setEntries(entries)
+        return entry
     }
 
     // Removes all instances of given entry or entries.
