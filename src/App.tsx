@@ -16,7 +16,7 @@ class App extends React.Component {
                 버튼 왼쪽부터 오른쪽으로 하나씩 눌러보세요!
                 <button
                     onClick={() => {
-                        this.state.addDatabase(new Database(this)).setId("one")
+                        this.state.addDatabase(new Database(this)).setId("Cars")
                     }}
                 >
                     add database
@@ -26,7 +26,7 @@ class App extends React.Component {
                         this.state
                             .getDatabases()[0]
                             .addEntry(new Entry(this))
-                            .setId("two")
+                            .setId("Maserati")
                     }}
                 >
                     add entry
@@ -37,7 +37,7 @@ class App extends React.Component {
                             .getDatabases()[0]
                             .getEntries()[0]
                             .addProperty(
-                                new EntryProperty(this, "test", 202020)
+                                new EntryProperty(this, "Brand", "Maserati")
                             )
                     }}
                 >
@@ -48,7 +48,7 @@ class App extends React.Component {
                         this.state
                             .getDatabases()[0]
                             .addEntry(new Entry(this))
-                            .setId("three")
+                            .setId("Mercedes")
                     }}
                 >
                     add entry2
@@ -59,11 +59,7 @@ class App extends React.Component {
                             .getDatabases()[0]
                             .getEntries()[1]
                             .addProperty(
-                                new EntryProperty(
-                                    this,
-                                    "test2",
-                                    "vamos vamos vamos"
-                                )
+                                new EntryProperty(this, "Country", "Germany")
                             )
                     }}
                 >
@@ -74,7 +70,7 @@ class App extends React.Component {
                         this.state
                             .getDatabases()[0]
                             .addEntry(new Entry(this))
-                            .setId("cuatro")
+                            .setId("Volkswagen")
                     }}
                 >
                     add entry3
@@ -85,7 +81,7 @@ class App extends React.Component {
                             .getDatabases()[0]
                             .getEntries()[2]
                             .addProperty(
-                                new EntryProperty(this, "test tres", 202020200)
+                                new EntryProperty(this, "사기꾼", "yes")
                             )
                     }}
                 >
