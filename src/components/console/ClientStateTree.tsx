@@ -11,10 +11,12 @@ export default function ClientStateTree(props: { state: AtlasClientState }) {
                 return (
                     <div key={db.getId()}>
                         <h3>-- {db.getId()}</h3>
+
                         {db.getEntries().map(entry => {
                             return (
                                 <div key={entry.getId()}>
                                     <h4>---- {entry.getId()}</h4>
+
                                     {entry.getProperties().map(property => {
                                         return (
                                             <div key={property.getKey()}>
