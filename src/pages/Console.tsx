@@ -1,5 +1,6 @@
 import AtlasClientState from "../classes/AtlasClientState"
 import ClientStateTree from "../components/console/ClientStateTree"
+import DatabaseManager from "../components/console/DatabaseManager"
 import { StyleConventions } from "../style/StyleConventions"
 
 export default function Console(props: { state: AtlasClientState }) {
@@ -8,6 +9,9 @@ export default function Console(props: { state: AtlasClientState }) {
     return (
         <>
             <ClientStateTree state={state} />
+            {state.getDatabases().map(db => {
+                return <DatabaseManager database={db} />
+            })}
             <StyleConventions.LargeErrorButton>
                 Large Error
             </StyleConventions.LargeErrorButton>

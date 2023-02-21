@@ -42,6 +42,54 @@ class App extends React.Component {
                 >
                     add property
                 </button>
+                <button
+                    onClick={() => {
+                        this.state
+                            .getDatabases()[0]
+                            .addEntry(new Entry(this))
+                            .setId("three")
+                    }}
+                >
+                    add entry2
+                </button>
+                <button
+                    onClick={() => {
+                        this.state
+                            .getDatabases()[0]
+                            .getEntries()[1]
+                            .addProperty(
+                                new EntryProperty(
+                                    this,
+                                    "test2",
+                                    "vamos vamos vamos"
+                                )
+                            )
+                    }}
+                >
+                    add property2
+                </button>
+                <button
+                    onClick={() => {
+                        this.state
+                            .getDatabases()[0]
+                            .addEntry(new Entry(this))
+                            .setId("cuatro")
+                    }}
+                >
+                    add entry3
+                </button>
+                <button
+                    onClick={() => {
+                        this.state
+                            .getDatabases()[0]
+                            .getEntries()[2]
+                            .addProperty(
+                                new EntryProperty(this, "test tres", 202020200)
+                            )
+                    }}
+                >
+                    add property3
+                </button>
                 <Router state={this.state} />
             </StyleConventions.GlobalStyleWrap>
         )
