@@ -126,6 +126,10 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
 
                         if (Number(newInput)) {
                             property.setValue(Number(newInput))
+                        } else if (newInput === "true") {
+                            property.setValue(true)
+                        } else if (newInput === "false") {
+                            property.setValue(false)
                         } else {
                             property.setValue(newInput)
                         }
