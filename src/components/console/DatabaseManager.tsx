@@ -104,7 +104,7 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
             {!isEditing ? (
                 <p>
                     {property.getValue() !== "" ? (
-                        property.getValue()
+                        String(property.getValue())
                     ) : (
                         <span style={{ color: StyleConventions.errorColor }}>
                             no value
