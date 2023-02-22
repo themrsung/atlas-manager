@@ -197,6 +197,7 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
             }}
             onBlur={() => {
                 setIsEditing(false)
+                setNewInput("")
             }}
             style={{ cursor: "pointer" }}
         >
@@ -263,6 +264,7 @@ function DatabaseManagerEntryId(props: { entry: Entry; database: Database }) {
             }}
             onBlur={() => {
                 setIsEditing(false)
+                setNewInput("")
             }}
             style={{ cursor: "pointer", display: "flex" }}
         >
@@ -340,6 +342,7 @@ function DatabaseManagerColumnTitle(props: {
             }}
             onBlur={() => {
                 setIsEditing(false)
+                setNewInput("")
             }}
         >
             {!isEditing ? (
