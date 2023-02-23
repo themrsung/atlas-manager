@@ -6,8 +6,12 @@ import EntryProperty from "../../classes/EntryProperty"
 import S from "../../style/components/console/DatabaseManagerStyles"
 import StyleConventions from "../../style/StyleConventions"
 
-export default function DatabaseManager(props: { database: Database }) {
+export default function DatabaseManager(props: {
+    database: Database
+    state: AtlasClientState
+}) {
     const database: Database = props.database
+    const state: AtlasClientState = props.state
 
     const keys: string[] = []
 
@@ -99,7 +103,7 @@ export default function DatabaseManager(props: { database: Database }) {
     return (
         <S.Wrap>
             <S.Header>
-                <S.HeaderTitle>{database.getId()}</S.HeaderTitle>
+                <DatanaseManagerHeaderTitle database={database} state={state} />
             </S.Header>
             <S.Body>
                 <S.Columns>
@@ -182,6 +186,75 @@ export default function DatabaseManager(props: { database: Database }) {
     )
 }
 
+//
+//
+//
+
+function DatanaseManagerHeaderTitle(props: {
+    database: Database
+    state: AtlasClientState
+}) {
+    const database = props.database
+    const databases = props.state.getDatabases()
+
+    const [isEditing, setIsEditing] = useState<boolean>(false)
+    const [newInput, setNewInput] = useState<string>(database.getId())
+
+    const startEditing = () => {
+        setIsEditing(true)
+        setNewInput(database.getId())
+    }
+
+    const stopEditing = () => {
+        setIsEditing(false)
+        setNewInput("")
+    }
+
+    const onEditFormSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        if (newInput === "") return
+
+        for (let i = 0; i < databases.length; i++) {
+            if (databases[i] !== database) {
+                if (
+                    databases[i].getId().toLowerCase() ===
+                    newInput.toLowerCase()
+                )
+                    return
+            }
+        }
+
+        database.setId(newInput)
+
+        stopEditing()
+    }
+
+    const onInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewInput(e.currentTarget.value)
+    }
+
+    return (
+        <div
+            style={{ cursor: "pointer" }}
+            onClick={startEditing}
+            onBlur={stopEditing}
+        >
+            {!isEditing ? (
+                <S.HeaderTitle>{database.getId()}</S.HeaderTitle>
+            ) : (
+                <form onSubmit={onEditFormSubmitted}>
+                    <input value={newInput} onChange={onInputChanged} />
+                </form>
+            )}
+        </div>
+    )
+}
+
+//
+//
+//
+
 function DatabaseManagerProperty(props: { property: EntryProperty }) {
     const property = props.property
 
@@ -190,15 +263,41 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
         String(property.getValue())
     )
 
+    const startEditing = () => {
+        setIsEditing(true)
+        setNewInput(String(property.getValue()))
+    }
+
+    const stopEditing = () => {
+        setIsEditing(false)
+        setNewInput("")
+    }
+
+    const onEditFormSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        if (Number(newInput)) {
+            property.setValue(Number(newInput))
+        } else if (newInput === "true") {
+            property.setValue(true)
+        } else if (newInput === "false") {
+            property.setValue(false)
+        } else {
+            property.setValue(newInput)
+        }
+
+        stopEditing()
+    }
+
+    const onInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        setNewInput(e.currentTarget.value)
+    }
+
     return (
         <div
-            onClick={() => {
-                setIsEditing(true)
-            }}
-            onBlur={() => {
-                setIsEditing(false)
-                setNewInput("")
-            }}
+            onClick={startEditing}
+            onBlur={stopEditing}
             style={{ cursor: "pointer" }}
         >
             {!isEditing ? (
@@ -220,35 +319,17 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
                     </span>
                 </p>
             ) : (
-                <form
-                    onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                        e.preventDefault()
-
-                        if (Number(newInput)) {
-                            property.setValue(Number(newInput))
-                        } else if (newInput === "true") {
-                            property.setValue(true)
-                        } else if (newInput === "false") {
-                            property.setValue(false)
-                        } else {
-                            property.setValue(newInput)
-                        }
-
-                        setIsEditing(false)
-                    }}
-                >
-                    <input
-                        value={newInput}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            e.preventDefault()
-                            setNewInput(e.currentTarget.value)
-                        }}
-                    />
+                <form onSubmit={onEditFormSubmitted}>
+                    <input value={newInput} onChange={onInputChanged} />
                 </form>
             )}
         </div>
     )
 }
+
+//
+//
+//
 
 function DatabaseManagerEntryId(props: { entry: Entry; database: Database }) {
     const entry = props.entry
@@ -257,70 +338,73 @@ function DatabaseManagerEntryId(props: { entry: Entry; database: Database }) {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [newInput, setNewInput] = useState<string>(entry.getId())
 
+    const startEditing = () => {
+        setIsEditing(true)
+        setNewInput(entry.getId())
+    }
+
+    const stopEditing = () => {
+        setIsEditing(false)
+        setNewInput("")
+    }
+
+    const onEditFormSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        if (newInput === "") return
+
+        for (let i = 0; i < database.getEntries().length; i++) {
+            if (entry !== database.getEntries()[i]) {
+                if (
+                    newInput.toLowerCase() ===
+                    database.getEntries()[i].getId().toLowerCase()
+                )
+                    return
+            }
+        }
+
+        entry.setId(newInput)
+
+        stopEditing()
+    }
+
+    const onInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewInput(e.currentTarget.value)
+    }
+
+    const onDeleteRow = () => {
+        if (
+            window.confirm(
+                "Do you really want to delete row " + entry.getId() + "?"
+            )
+        ) {
+            database.removeEntry(entry)
+        }
+    }
+
     return (
         <div
-            onClick={() => {
-                setIsEditing(true)
-            }}
-            onBlur={() => {
-                setIsEditing(false)
-                setNewInput("")
-            }}
+            onClick={startEditing}
+            onBlur={stopEditing}
             style={{ cursor: "pointer", display: "flex" }}
         >
             {!isEditing ? (
                 <p>{entry.getId()}</p>
             ) : (
-                <form
-                    onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                        e.preventDefault()
-
-                        if (newInput === "") return
-
-                        for (let i = 0; i < database.getEntries().length; i++) {
-                            if (entry !== database.getEntries()[i]) {
-                                if (
-                                    newInput.toLowerCase() ===
-                                    database
-                                        .getEntries()
-                                        [i].getId()
-                                        .toLowerCase()
-                                )
-                                    return
-                            }
-                        }
-
-                        entry.setId(newInput)
-
-                        setIsEditing(false)
-                    }}
-                >
-                    <input
-                        value={newInput}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            setNewInput(e.currentTarget.value)
-                        }}
-                    />
+                <form onSubmit={onEditFormSubmitted}>
+                    <input value={newInput} onChange={onInputChanged} />
                 </form>
             )}
-            <StyleConventions.SmallErrorButton
-                onClick={() => {
-                    if (
-                        window.confirm(
-                            "Do you really want to delete row " +
-                                entry.getId() +
-                                "?"
-                        )
-                    ) {
-                        database.removeEntry(entry)
-                    }
-                }}
-            >
+            <StyleConventions.SmallErrorButton onClick={onDeleteRow}>
                 X
             </StyleConventions.SmallErrorButton>
         </div>
     )
 }
+
+//
+//
+//
 
 function DatabaseManagerColumnTitle(props: {
     keyName: string
@@ -334,65 +418,63 @@ function DatabaseManagerColumnTitle(props: {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [newInput, setNewInput] = useState<string>(key)
 
+    const startEditing = () => {
+        setIsEditing(true)
+        setNewInput(key)
+    }
+
+    const stopEditing = () => {
+        setIsEditing(false)
+        setNewInput("")
+    }
+
+    const onEditFormSubmitted = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        if (newInput === "") return
+
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i] !== key) {
+                if (keys[i].toLowerCase() === newInput.toLowerCase()) return
+            }
+        }
+
+        const entries = database.getEntries()
+        for (let i = 0; i < entries.length; i++) {
+            entries[i].getPropertyByKey(key).setKey(newInput)
+        }
+
+        setIsEditing(false)
+    }
+
+    const onInputChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewInput(e.currentTarget.value)
+    }
+
+    const onDeleteColumn = () => {
+        if (
+            window.confirm("Do you really want to delete column " + key + "?")
+        ) {
+            database.getEntries().forEach(entry => {
+                entry.removePropertyByKey(key)
+            })
+        }
+    }
+
     return (
         <div
             style={{ cursor: "pointer" }}
-            onClick={() => {
-                setIsEditing(true)
-            }}
-            onBlur={() => {
-                setIsEditing(false)
-                setNewInput("")
-            }}
+            onClick={startEditing}
+            onBlur={stopEditing}
         >
             {!isEditing ? (
                 <S.ColumnTitle>{key}</S.ColumnTitle>
             ) : (
-                <form
-                    onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                        e.preventDefault()
-
-                        if (newInput === "") return
-
-                        for (let i = 0; i < keys.length; i++) {
-                            if (keys[i] !== key) {
-                                if (
-                                    keys[i].toLowerCase() ===
-                                    newInput.toLowerCase()
-                                )
-                                    return
-                            }
-                        }
-
-                        const entries = database.getEntries()
-                        for (let i = 0; i < entries.length; i++) {
-                            entries[i].getPropertyByKey(key).setKey(newInput)
-                        }
-
-                        setIsEditing(false)
-                    }}
-                >
-                    <input
-                        value={newInput}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            setNewInput(e.currentTarget.value)
-                        }}
-                    />
+                <form onSubmit={onEditFormSubmitted}>
+                    <input value={newInput} onChange={onInputChanged} />
                 </form>
             )}
-            <StyleConventions.SmallErrorButton
-                onClick={() => {
-                    if (
-                        window.confirm(
-                            "Do you really want to delete column " + key + "?"
-                        )
-                    ) {
-                        database.getEntries().forEach(entry => {
-                            entry.removePropertyByKey(key)
-                        })
-                    }
-                }}
-            >
+            <StyleConventions.SmallErrorButton onClick={onDeleteColumn}>
                 X
             </StyleConventions.SmallErrorButton>
         </div>
