@@ -2,7 +2,7 @@ import React from "react"
 import "./App.css"
 import AtlasClientState from "./classes/AtlasClientState"
 import AtlasClientUser from "./classes/AtlasClientUser"
-import Database from "./classes/Database"
+import AtlasClientDatabase from "./classes/AtlasClientDatabase"
 import Entry from "./classes/Entry"
 import EntryProperty from "./classes/EntryProperty"
 import Router from "./components/Router"
@@ -17,7 +17,9 @@ class App extends React.Component {
                 버튼 왼쪽부터 오른쪽으로 하나씩 눌러보세요!
                 <button
                     onClick={() => {
-                        this.state.addDatabase(new Database(this)).setId("Cars")
+                        this.state
+                            .addDatabase(new AtlasClientDatabase(this))
+                            .setId("Cars")
                     }}
                 >
                     add database

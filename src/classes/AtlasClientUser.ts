@@ -104,6 +104,7 @@ class HashPassword {
         }
 
         hash *= 3
+        hash -= 1234567890
 
         return hash
     }

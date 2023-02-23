@@ -1,6 +1,6 @@
 import Entry from "./Entry"
 
-export default class Database {
+export default class AtlasClientDatabase {
     constructor(reactComponent: React.Component) {
         this.reactComponent = reactComponent
     }

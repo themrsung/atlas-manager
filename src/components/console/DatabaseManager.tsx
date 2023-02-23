@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import AtlasClientState from "../../classes/AtlasClientState"
-import Database from "../../classes/Database"
+import AtlasClientDatabase from "../../classes/AtlasClientDatabase"
 import Entry from "../../classes/Entry"
 import EntryProperty from "../../classes/EntryProperty"
 import S from "../../style/components/console/DatabaseManagerStyles"
@@ -13,10 +13,10 @@ import {
 } from "../../style/components/console/DatabaseManagerStyles"
 
 export default function DatabaseManager(props: {
-    database: Database
+    database: AtlasClientDatabase
     state: AtlasClientState
 }) {
-    const database: Database = props.database
+    const database: AtlasClientDatabase = props.database
     const state: AtlasClientState = props.state
 
     const keys: string[] = []
@@ -73,6 +73,7 @@ export default function DatabaseManager(props: {
         }
     }
 
+    // Do not use useEffect(). We are using a proprietary state management system.
     onDatabaseManagerLoad()
 
     //
@@ -101,6 +102,10 @@ export default function DatabaseManager(props: {
         setNewColumnTitle("")
     }
 
+    //
+    //
+    //
+
     const [newRowTitle, setNewRowTitle] = useState<string>("")
     const addNewRow = () => {
         if (newRowTitle === "") return
@@ -118,6 +123,10 @@ export default function DatabaseManager(props: {
 
         setNewRowTitle("")
     }
+
+    //
+    //
+    //
 
     return (
         <S.Wrap>
@@ -213,7 +222,7 @@ export default function DatabaseManager(props: {
 //
 
 function DatabaseManagerHeaderTitle(props: {
-    database: Database
+    database: AtlasClientDatabase
     state: AtlasClientState
 }) {
     const database = props.database
@@ -335,7 +344,10 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
 //
 //
 
-function DatabaseManagerEntryId(props: { entry: Entry; database: Database }) {
+function DatabaseManagerEntryId(props: {
+    entry: Entry
+    database: AtlasClientDatabase
+}) {
     const entry = props.entry
     const database = props.database
 
@@ -409,7 +421,7 @@ function DatabaseManagerEntryId(props: { entry: Entry; database: Database }) {
 function DatabaseManagerColumnTitle(props: {
     keyName: string
     keys: string[]
-    database: Database
+    database: AtlasClientDatabase
 }) {
     const key = props.keyName
     const keys = props.keys
