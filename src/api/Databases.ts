@@ -42,7 +42,7 @@ export default class Databases {
         }
 
         const res = await axios.put(
-            this.DATABASES_SERVER_URL + "/" + user.getId(),
+            Databases.DATABASES_SERVER_URL + "/" + user.getId(),
             databasesToSendToServer
         )
 
