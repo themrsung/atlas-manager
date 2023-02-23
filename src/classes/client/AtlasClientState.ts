@@ -96,6 +96,7 @@ export default class AtlasClientState {
             this.currentUser
         )
 
+        if (!res) return "error"
         return res.statusText
     }
 

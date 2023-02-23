@@ -1,4 +1,4 @@
-import Entry from "../entry/Entry"
+import AtlasClientEntry from "./AtlasClientEntry"
 
 export default class AtlasClientDatabase {
     constructor(reactComponent: React.Component) {
@@ -51,7 +51,7 @@ export default class AtlasClientDatabase {
 
     // Entries
     // All entries within this database are stored here.
-    private entries: Entry[] = []
+    private entries: AtlasClientEntry[] = []
 
     // prettier-ignore
     getEntries() { return this.entries }
@@ -65,13 +65,13 @@ export default class AtlasClientDatabase {
     getEntryById(id: string) { return this.getEntriesById(id)[0] }
 
     // Destructive action, avoid if possible.
-    setEntries(entries: Entry[]) {
+    setEntries(entries: AtlasClientEntry[]) {
         this.entries = entries
         this.refresh()
     }
 
     // Adds entry to database.
-    addEntry(entry: Entry) {
+    addEntry(entry: AtlasClientEntry) {
         const entries = this.getEntries()
         entries.push(entry)
 
@@ -81,9 +81,9 @@ export default class AtlasClientDatabase {
 
     // Removes all instances of given entry or entries.
     // prettier-ignore
-    removeEntry(entry: Entry) { this.setEntries(this.getEntries().filter(e => e !== entry)) }
+    removeEntry(entry: AtlasClientEntry) { this.setEntries(this.getEntries().filter(e => e !== entry)) }
     // prettier-ignore
-    removeEntries(entries: Entry[]) { entries.forEach(entry => this.removeEntry(entry)) }
+    removeEntries(entries: AtlasClientEntry[]) { entries.forEach(entry => this.removeEntry(entry)) }
     // prettier-ignore
     removeEntryById(id: string) { this.removeEntries(this.getEntriesById(id)) }
 

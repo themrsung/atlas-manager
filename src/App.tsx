@@ -3,10 +3,11 @@ import "./App.css"
 import AtlasClientState from "./classes/client/AtlasClientState"
 import AtlasClientUser from "./classes/client/AtlasClientUser"
 import AtlasClientDatabase from "./classes/client/AtlasClientDatabase"
-import Entry from "./classes/entry/Entry"
-import EntryProperty from "./classes/entry/EntryProperty"
+import AtlasClientEntry from "./classes/client/AtlasClientEntry"
+import AtlasClientEntryProperty from "./classes/client/AtlasClientEntryProperty"
 import Router from "./components/Router"
 import StyleConventions from "./style/StyleConventions"
+import Auth from "./api/Auth"
 
 class App extends React.Component {
     state: AtlasClientState = new AtlasClientState(this)
@@ -28,7 +29,7 @@ class App extends React.Component {
                     onClick={() => {
                         this.state
                             .getDatabases()[0]
-                            .addEntry(new Entry(this))
+                            .addEntry(new AtlasClientEntry(this))
                             .setId("Maserati")
                     }}
                 >
@@ -40,7 +41,11 @@ class App extends React.Component {
                             .getDatabases()[0]
                             .getEntries()[0]
                             .addProperty(
-                                new EntryProperty(this, "Brand", "Maserati")
+                                new AtlasClientEntryProperty(
+                                    this,
+                                    "Brand",
+                                    "Maserati"
+                                )
                             )
                     }}
                 >
@@ -50,7 +55,7 @@ class App extends React.Component {
                     onClick={() => {
                         this.state
                             .getDatabases()[0]
-                            .addEntry(new Entry(this))
+                            .addEntry(new AtlasClientEntry(this))
                             .setId("Mercedes")
                     }}
                 >
@@ -62,7 +67,11 @@ class App extends React.Component {
                             .getDatabases()[0]
                             .getEntries()[1]
                             .addProperty(
-                                new EntryProperty(this, "Country", "Germany")
+                                new AtlasClientEntryProperty(
+                                    this,
+                                    "Country",
+                                    "Germany"
+                                )
                             )
                     }}
                 >
@@ -72,7 +81,7 @@ class App extends React.Component {
                     onClick={() => {
                         this.state
                             .getDatabases()[0]
-                            .addEntry(new Entry(this))
+                            .addEntry(new AtlasClientEntry(this))
                             .setId("Volkswagen")
                     }}
                 >
@@ -84,7 +93,11 @@ class App extends React.Component {
                             .getDatabases()[0]
                             .getEntries()[2]
                             .addProperty(
-                                new EntryProperty(this, "사기꾼", "yes")
+                                new AtlasClientEntryProperty(
+                                    this,
+                                    "사기꾼",
+                                    "yes"
+                                )
                             )
                     }}
                 >
@@ -121,6 +134,37 @@ class App extends React.Component {
                     }}
                 >
                     비밀번호 password check
+                </button>
+                <button
+                    onClick={() => {
+                        const user = this.state.getCurrentUser()
+                        if (user) {
+                            Auth.addUserToServer(user)
+                        }
+                    }}
+                >
+                    add current user to server
+                </button>
+                <button
+                    onClick={async () => {
+                        console.log(await Auth.login(this, "admin", "password"))
+                    }}
+                >
+                    console.log(Auth.login())
+                </button>
+                <button
+                    onClick={() => {
+                        this.state.pushDatabasesToServer()
+                    }}
+                >
+                    add database as database of current user to server
+                </button>
+                <button
+                    onClick={async () => {
+                        this.state.pullDatabasesFromServer()
+                    }}
+                >
+                    fetch databases from server
                 </button>
                 <Router state={this.state} />
             </StyleConventions.GlobalStyleWrap>

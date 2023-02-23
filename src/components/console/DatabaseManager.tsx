@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import AtlasClientState from "../../classes/client/AtlasClientState"
 import AtlasClientDatabase from "../../classes/client/AtlasClientDatabase"
-import Entry from "../../classes/entry/Entry"
-import EntryProperty from "../../classes/entry/EntryProperty"
+import AtlasClientEntry from "../../classes/client/AtlasClientEntry"
+import AtlasClientEntryProperty from "../../classes/client/AtlasClientEntryProperty"
 import S from "../../style/components/console/DatabaseManagerStyles"
 import StyleConventions from "../../style/StyleConventions"
 import {
@@ -61,7 +61,7 @@ export default function DatabaseManager(props: {
             // Loop through missing properties
             for (let j = 0; j < missingProperties.length; j++) {
                 // Create property with blank value
-                const property = new EntryProperty(
+                const property = new AtlasClientEntryProperty(
                     database.getReactComponent(),
                     missingProperties[j],
                     ""
@@ -91,7 +91,7 @@ export default function DatabaseManager(props: {
             database
                 .getEntries()
                 [i].addProperty(
-                    new EntryProperty(
+                    new AtlasClientEntryProperty(
                         database.getReactComponent(),
                         newColumnTitle,
                         ""
@@ -118,7 +118,7 @@ export default function DatabaseManager(props: {
         }
 
         database
-            .addEntry(new Entry(database.getReactComponent()))
+            .addEntry(new AtlasClientEntry(database.getReactComponent()))
             .setId(newRowTitle)
 
         setNewRowTitle("")
@@ -282,7 +282,9 @@ function DatabaseManagerHeaderTitle(props: {
 //
 //
 
-function DatabaseManagerProperty(props: { property: EntryProperty }) {
+function DatabaseManagerProperty(props: {
+    property: AtlasClientEntryProperty
+}) {
     const property = props.property
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -345,7 +347,7 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
 //
 
 function DatabaseManagerEntryId(props: {
-    entry: Entry
+    entry: AtlasClientEntry
     database: AtlasClientDatabase
 }) {
     const entry = props.entry

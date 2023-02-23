@@ -2,6 +2,7 @@ import AtlasClientUser from "../classes/client/AtlasClientUser"
 import AtlasClientDatabase from "../classes/client/AtlasClientDatabase"
 import axios from "axios"
 import AtlasServerDatabase from "../classes/server/AtlasServerDatabase"
+import urlExist from "url-exist"
 
 export default class Databases {
     static DATABASES_SERVER_URL = "http://localhost:5000/databases"
@@ -18,8 +19,10 @@ export default class Databases {
         if (!res.data) return []
 
         // Converts server database data to client database data
-        for (let i = 0; i < res.data.length; i++) {
-            const serverDatabase = res.data[i] as AtlasServerDatabase
+        for (let i = 0; i < Object.keys(res.data).length - 1; i++) {
+            const serverDatabase = AtlasServerDatabase.fromObject(res.data[i])
+
+            if (!serverDatabase) return null
 
             databases.push(serverDatabase.toClientDatabase(reactComponent))
         }
@@ -35,13 +38,13 @@ export default class Databases {
 
         for (let i = 0; i < databases.length; i++) {
             databasesToSendToServer.push(new AtlasServerDatabase(databases[i]))
+
+            const res = await axios.put(
+                Databases.DATABASES_SERVER_URL + "/" + user.getId(),
+                databasesToSendToServer
+            )
+
+            return res
         }
-
-        const res = await axios.put(
-            Databases.DATABASES_SERVER_URL + "/" + user.getId(),
-            databasesToSendToServer
-        )
-
-        return res
     }
 }

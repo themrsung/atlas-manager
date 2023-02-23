@@ -1,4 +1,4 @@
-export default class EntryProperty {
+export default class AtlasClientEntryProperty {
     constructor(reactComponent: React.Component, key: string, value: any) {
         this.reactComponent = reactComponent
         this.key = key

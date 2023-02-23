@@ -1,5 +1,6 @@
 import axios from "axios"
 import AtlasClientUser from "../classes/client/AtlasClientUser"
+import AtlasServerUser from "../classes/server/AtlasServerUser"
 
 export default class Auth {
     static AUTH_SERVER_URL = "http://localhost:5000/users"
@@ -24,5 +25,33 @@ export default class Auth {
         }
 
         return users
+    }
+
+    static async addUserToServer(user: AtlasClientUser) {
+        const serverUser = new AtlasServerUser(user)
+
+        const res = await axios.post(Auth.AUTH_SERVER_URL, serverUser)
+        return res.statusText
+    }
+
+    static async login(
+        reactComponent: React.Component,
+        id: string,
+        password: string
+    ) {
+        const res = await Auth.getUsers(reactComponent)
+
+        for (let i = 0; i < res.length; i++) {
+            const user = res[i]
+            if (user.getId() === id) {
+                if (user.validatePassword(password)) {
+                    // Login success, do something
+
+                    return true
+                }
+            }
+        }
+
+        return false
     }
 }

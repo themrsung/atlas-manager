@@ -1,6 +1,6 @@
-import EntryProperty from "./EntryProperty"
+import AtlasClientEntryProperty from "./AtlasClientEntryProperty"
 
-export default class Entry {
+export default class AtlasClientEntry {
     constructor(reactComponent: React.Component) {
         this.reactComponent = reactComponent
     }
@@ -52,7 +52,7 @@ export default class Entry {
 
     // Properties
     // All properties of this entry are stored here.
-    private properties: EntryProperty[] = []
+    private properties: AtlasClientEntryProperty[] = []
 
     // prettier-ignore
     getProperties() { return this.properties }
@@ -70,13 +70,13 @@ export default class Entry {
     getPropertiesByValue(value: any) { return this.getProperties().filter(property => property.getValue() === value) }
 
     // Destructive action, avoid if possible.
-    setProperties(properties: EntryProperty[]) {
+    setProperties(properties: AtlasClientEntryProperty[]) {
         this.properties = properties
         this.refresh()
     }
 
     // Adds property to entry.
-    addProperty(property: EntryProperty) {
+    addProperty(property: AtlasClientEntryProperty) {
         const properties = this.getProperties()
         properties.push(property)
 
@@ -86,9 +86,9 @@ export default class Entry {
 
     // Removes all instances of given property or properties
     // prettier-ignore
-    removeProperty(property: EntryProperty) { this.setProperties(this.getProperties().filter(p => p !== property)) }
+    removeProperty(property: AtlasClientEntryProperty) { this.setProperties(this.getProperties().filter(p => p !== property)) }
     // prettier-ignore
-    removeProperties(properties: EntryProperty[]) { properties.forEach(property => this.removeProperty(property)) }
+    removeProperties(properties: AtlasClientEntryProperty[]) { properties.forEach(property => this.removeProperty(property)) }
     // prettier-ignore
     removePropertyByKey(key: string) { this.removeProperties(this.getPropertiesByKey(key)) }
 
