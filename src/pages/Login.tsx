@@ -12,8 +12,6 @@ export default function Login(props: { state: AtlasClientState }) {
 
     const [id, setId] = useState<string>("")
     const [password, setPassword] = useState<string>("")
-    const [email, setEmail] = useState<string>("")
-    const [displayName, setDisplayName] = useState<string>("")
 
     const onRegisterFormSubmitted = async (
         e: React.FormEvent<HTMLFormElement>
