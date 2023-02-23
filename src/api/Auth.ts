@@ -34,7 +34,7 @@ export default class Auth {
         return res.statusText
     }
 
-    static async login(
+    static async findUserWithCredentials(
         reactComponent: React.Component,
         id: string,
         password: string
@@ -47,11 +47,11 @@ export default class Auth {
                 if (user.validatePassword(password)) {
                     // Login success, do something
 
-                    return true
+                    return user
                 }
             }
         }
 
-        return false
+        return null
     }
 }
