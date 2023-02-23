@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router"
 import { BrowserRouter } from "react-router-dom"
-import AtlasClientState from "../classes/AtlasClientState"
+import AtlasClientState from "../classes/client/AtlasClientState"
 import Console from "../pages/Console"
 
 export default function Router(props: { state: AtlasClientState }) {

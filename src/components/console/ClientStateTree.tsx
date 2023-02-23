@@ -1,10 +1,11 @@
-import AtlasClientState from "../../classes/AtlasClientState"
+import AtlasClientState from "../../classes/client/AtlasClientState"
+import S from "../../style/components/console/ClientStateTreeStyles"
 
 export default function ClientStateTree(props: { state: AtlasClientState }) {
     const state = props.state
 
     return (
-        <div>
+        <S.Wrap>
             <h1>State</h1>
             <h2>- Databases</h2>
             {state.getDatabases().map(db => {
@@ -33,6 +34,6 @@ export default function ClientStateTree(props: { state: AtlasClientState }) {
                     </div>
                 )
             })}
-        </div>
+        </S.Wrap>
     )
 }
