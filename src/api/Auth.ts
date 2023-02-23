@@ -1,5 +1,5 @@
 import axios from "axios"
-import AtlasClientUser from "../classes/AtlasClientUser"
+import AtlasClientUser from "../classes/client/AtlasClientUser"
 
 export default class Auth {
     static AUTH_SERVER_URL = "http://localhost:5000/users"

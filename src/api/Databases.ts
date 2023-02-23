@@ -1,7 +1,7 @@
-import AtlasClientUser from "../classes/AtlasClientUser"
-import AtlasClientDatabase from "../classes/AtlasClientDatabase"
+import AtlasClientUser from "../classes/client/AtlasClientUser"
+import AtlasClientDatabase from "../classes/client/AtlasClientDatabase"
 import axios from "axios"
-import AtlasServerDatabase from "../classes/AtlasServerDatabase"
+import AtlasServerDatabase from "../classes/server/AtlasServerDatabase"
 
 export default class Databases {
     static DATABASES_SERVER_URL = "http://localhost:5000/databases"
@@ -19,13 +19,9 @@ export default class Databases {
 
         // Converts server database data to client database data
         for (let i = 0; i < res.data.length; i++) {
-            const clientDatabase = new AtlasClientDatabase(reactComponent)
-            const serverDatabase = res.data[i]
+            const serverDatabase = res.data[i] as AtlasServerDatabase
 
-            clientDatabase.setId(serverDatabase.id)
-            clientDatabase.setEntries(serverDatabase.entries)
-
-            databases.push(clientDatabase)
+            databases.push(serverDatabase.toClientDatabase(reactComponent))
         }
 
         return databases

@@ -1,8 +1,8 @@
 import React, { useState } from "react"
-import AtlasClientState from "../../classes/AtlasClientState"
-import AtlasClientDatabase from "../../classes/AtlasClientDatabase"
-import Entry from "../../classes/Entry"
-import EntryProperty from "../../classes/EntryProperty"
+import AtlasClientState from "../../classes/client/AtlasClientState"
+import AtlasClientDatabase from "../../classes/client/AtlasClientDatabase"
+import Entry from "../../classes/entry/Entry"
+import EntryProperty from "../../classes/entry/EntryProperty"
 import S from "../../style/components/console/DatabaseManagerStyles"
 import StyleConventions from "../../style/StyleConventions"
 import {

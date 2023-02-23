@@ -1,4 +1,4 @@
-import Databases from "../api/Databases"
+import Databases from "../../api/Databases"
 import AtlasClientUser from "./AtlasClientUser"
 import AtlasClientDatabase from "./AtlasClientDatabase"
 

@@ -1,4 +1,4 @@
-import AtlasClientState from "../classes/AtlasClientState"
+import AtlasClientState from "../classes/client/AtlasClientState"
 import ClientStateTree from "../components/console/ClientStateTree"
 import DatabaseManager from "../components/console/DatabaseManager"
 import StyleConventions from "../style/StyleConventions"
