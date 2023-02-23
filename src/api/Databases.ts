@@ -2,10 +2,10 @@ import AtlasClientUser from "../classes/client/AtlasClientUser"
 import AtlasClientDatabase from "../classes/client/AtlasClientDatabase"
 import axios from "axios"
 import AtlasServerDatabase from "../classes/server/AtlasServerDatabase"
-import urlExist from "url-exist"
+import { ApiSettings } from "./ApiSettings"
 
 export default class Databases {
-    static DATABASES_SERVER_URL = "http://localhost:5000/databases"
+    static DATABASES_SERVER_URL = ApiSettings.SERVER_BASE_URL + "/databases"
 
     static async getDatabasesOfUser(
         reactComponent: React.Component,

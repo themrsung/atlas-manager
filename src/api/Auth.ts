@@ -2,10 +2,11 @@ import axios from "axios"
 import AtlasClientUser from "../classes/client/AtlasClientUser"
 import AtlasServerDatabase from "../classes/server/AtlasServerDatabase"
 import AtlasServerUser from "../classes/server/AtlasServerUser"
+import { ApiSettings } from "./ApiSettings"
 import Databases from "./Databases"
 
 export default class Auth {
-    static AUTH_SERVER_URL = "http://localhost:5000/users"
+    static AUTH_SERVER_URL = ApiSettings.SERVER_BASE_URL + "/users"
 
     static async getUsers(reactComponent: React.Component) {
         const users: AtlasClientUser[] = []
@@ -27,6 +28,44 @@ export default class Auth {
         }
 
         return users
+    }
+
+    static isIdValid(id: string) {
+        if (id === "") return false
+
+        return true
+    }
+
+    static async isIdTaken(id: string, reactComponent: React.Component) {
+        const users = await Auth.getUsers(reactComponent)
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].getId() === id) return false
+        }
+
+        return true
+    }
+
+    static isPasswordValid(password: string) {
+        if (password === "") return false
+        if (password.length < 8) return false
+
+        return true
+    }
+
+    static isEmailValid(email: string) {
+        if (email === "") return false
+        if (email.length < 5) return false
+        if (email.split("@").length !== 2) return false
+        if (email.split(".").length !== 2) return false
+
+        return true
+    }
+
+    static isDisplayNameValid(displayName: string) {
+        if (displayName === "") return false
+        if (displayName.length < 3) return false
+
+        return true
     }
 
     static async addUserToServer(user: AtlasClientUser) {
