@@ -1,5 +1,6 @@
 import AtlasClientUser from "../client/AtlasClientUser"
 
+// Use constructor to convert client to server, use toClientDatabase() to convert server to client
 export default class AtlasServerUser {
     constructor(clientUser: AtlasClientUser) {
         this.id = clientUser.getId()
