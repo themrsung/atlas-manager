@@ -122,7 +122,7 @@ export default function DatabaseManager(props: {
     return (
         <S.Wrap>
             <S.Header>
-                <DatanaseManagerHeaderTitle database={database} state={state} />
+                <DatabaseManagerHeaderTitle database={database} state={state} />
             </S.Header>
             <S.Body>
                 <S.Columns>
@@ -209,7 +209,7 @@ export default function DatabaseManager(props: {
 //
 //
 
-function DatanaseManagerHeaderTitle(props: {
+function DatabaseManagerHeaderTitle(props: {
     database: Database
     state: AtlasClientState
 }) {
