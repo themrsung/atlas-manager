@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import AtlasClientState from "../../classes/AtlasClientState"
 import Database from "../../classes/Database"
 import Entry from "../../classes/Entry"
@@ -131,6 +131,7 @@ export default function DatabaseManager(props: {
                         {database.getEntries().map(entry => {
                             return (
                                 <DatabaseManagerEntryId
+                                    key={entry.getId()}
                                     entry={entry}
                                     database={database}
                                 />
@@ -139,8 +140,9 @@ export default function DatabaseManager(props: {
                     </S.Column>
                     {keys.map(key => {
                         return (
-                            <S.Column>
+                            <S.Column key={key}>
                                 <DatabaseManagerColumnTitle
+                                    key={key}
                                     keyName={key}
                                     keys={keys}
                                     database={database}
@@ -148,6 +150,7 @@ export default function DatabaseManager(props: {
                                 {database.getEntries().map(entry => {
                                     return (
                                         <DatabaseManagerProperty
+                                            key={entry.getId()}
                                             property={entry.getPropertyByKey(
                                                 key
                                             )}

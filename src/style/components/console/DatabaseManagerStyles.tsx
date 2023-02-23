@@ -78,9 +78,13 @@ export class DatabaseManagerHeaderTitleStyles {
 export class DatabaseManagerPropertyStyles {
     static Wrap = styled.div`
         cursor: pointer;
+        border: 1px solid ${StyleConventions.blackTextColor};
     `
 
-    static PropertyValue = styled.p``
+    static PropertyValue = styled.p`
+        min-width: 150px;
+        text-align: center;
+    `
 
     static NoValueText = styled.span`
         color: ${StyleConventions.errorColor};

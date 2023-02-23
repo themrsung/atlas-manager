@@ -1,3 +1,4 @@
+import AtlasClientUser from "./AtlasClientUser"
 import Database from "./Database"
 
 export default class AtlasClientState {
@@ -7,7 +8,6 @@ export default class AtlasClientState {
 
     // React Component
     // The component in which this state resides in. Will be used induce to re-render on state change.
-
     private reactComponent: React.Component
 
     // prettier-ignore
@@ -18,6 +18,7 @@ export default class AtlasClientState {
         this.databases.forEach(db => {
             db.setReactComponent(reactComponent)
         })
+        if (this.currentUser) this.currentUser.setReactComponent(reactComponent)
     }
 
     //
@@ -74,4 +75,18 @@ export default class AtlasClientState {
     //
     //
     //
+
+    // Current user
+    private currentUser: AtlasClientUser | null = null
+
+    getCurrentUser() {
+        return this.currentUser
+    }
+
+    setCurrentUser(user: AtlasClientUser) {
+        this.currentUser = user
+        this.refresh()
+
+        return user
+    }
 }

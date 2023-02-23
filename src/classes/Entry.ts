@@ -7,7 +7,6 @@ export default class Entry {
 
     // React Component
     // The component in which this state resides in. Will be used induce to re-render on state change.
-
     private reactComponent: React.Component
 
     // prettier-ignore

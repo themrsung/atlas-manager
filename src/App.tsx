@@ -1,6 +1,7 @@
 import React from "react"
 import "./App.css"
 import AtlasClientState from "./classes/AtlasClientState"
+import AtlasClientUser from "./classes/AtlasClientUser"
 import Database from "./classes/Database"
 import Entry from "./classes/Entry"
 import EntryProperty from "./classes/EntryProperty"
@@ -88,6 +89,37 @@ class App extends React.Component {
                     add property3
                 </button>
                 표에 있는 값을 누르면 수정됩니다
+                <button
+                    onClick={() => {
+                        console.log(this.state)
+                    }}
+                >
+                    console.log(state)
+                </button>
+                <button
+                    onClick={() => {
+                        const user = this.state.setCurrentUser(
+                            new AtlasClientUser(this)
+                        )
+                        user.setId("admin")
+                        user.setDisplayName("Administrator")
+                        user.setEmail("admin@atlaspartners.kr")
+                        user.setPassword("password")
+                    }}
+                >
+                    user 설정
+                </button>
+                <button
+                    onClick={() => {
+                        console.log(
+                            this.state
+                                .getCurrentUser()
+                                ?.validatePassword("password")
+                        )
+                    }}
+                >
+                    비밀번호 password check
+                </button>
                 <Router state={this.state} />
             </StyleConventions.GlobalStyleWrap>
         )

@@ -10,7 +10,13 @@ export default function Console(props: { state: AtlasClientState }) {
         <>
             <ClientStateTree state={state} />
             {state.getDatabases().map(db => {
-                return <DatabaseManager database={db} state={state} />
+                return (
+                    <DatabaseManager
+                        key={db.getId()}
+                        database={db}
+                        state={state}
+                    />
+                )
             })}
             <StyleConventions.LargeErrorButton>
                 Large Error
