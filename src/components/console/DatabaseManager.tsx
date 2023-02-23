@@ -5,6 +5,12 @@ import Entry from "../../classes/Entry"
 import EntryProperty from "../../classes/EntryProperty"
 import S from "../../style/components/console/DatabaseManagerStyles"
 import StyleConventions from "../../style/StyleConventions"
+import {
+    DatabaseManagerHeaderTitleStyles as HTS,
+    DatabaseManagerPropertyStyles as PS,
+    DatabaseManagerEntryIdStyles as EIS,
+    DatabaseManagerColumnTitleStyles as CTS
+} from "../../style/components/console/DatabaseManagerStyles"
 
 export default function DatabaseManager(props: {
     database: Database
@@ -15,50 +21,63 @@ export default function DatabaseManager(props: {
 
     const keys: string[] = []
 
-    // Loop through all entries
-    for (let i = 0; i < database.getEntries().length; i++) {
-        const entry = database.getEntries()[i]
+    //
+    //
+    //
 
-        // Loop through all properties
-        for (let j = 0; j < entry.getProperties().length; j++) {
-            const property = entry.getProperties()[j]
+    // Finds all keys in database and fills blank properties in entries so that every entry has the same set of properties.
+    const onDatabaseManagerLoad = () => {
+        // Loop through all entries
+        for (let i = 0; i < database.getEntries().length; i++) {
+            const entry = database.getEntries()[i]
 
-            // Add key to list if not already found
-            if (!keys.includes(property.getKey())) {
-                keys.push(property.getKey())
+            // Loop through all properties
+            for (let j = 0; j < entry.getProperties().length; j++) {
+                const property = entry.getProperties()[j]
+
+                // Add key to list if not already found
+                if (!keys.includes(property.getKey())) {
+                    keys.push(property.getKey())
+                }
+            }
+        }
+
+        // Add properties with blank values for missing keys
+        // Loop through all entries
+        for (let i = 0; i < database.getEntries().length; i++) {
+            const entry = database.getEntries()[i]
+
+            // Find missing properties
+            let missingProperties: string[] = keys
+            // Loop through existing properties
+            for (let j = 0; j < entry.getProperties().length; j++) {
+                const property = entry.getProperties()[j]
+                // Remove key from missingProperties if property exists
+                missingProperties = missingProperties.filter(
+                    mp => mp !== property.getKey()
+                )
+            }
+
+            // Loop through missing properties
+            for (let j = 0; j < missingProperties.length; j++) {
+                // Create property with blank value
+                const property = new EntryProperty(
+                    database.getReactComponent(),
+                    missingProperties[j],
+                    ""
+                )
+
+                // Add property to entry
+                entry.addProperty(property)
             }
         }
     }
 
-    // Add properties with blank values for missing keys
-    // Loop through all entries
-    for (let i = 0; i < database.getEntries().length; i++) {
-        const entry = database.getEntries()[i]
+    onDatabaseManagerLoad()
 
-        // Find missing properties
-        let missingProperties: string[] = keys
-        // Loop through existing properties
-        for (let j = 0; j < entry.getProperties().length; j++) {
-            const property = entry.getProperties()[j]
-            // Remove key from missingProperties if property exists
-            missingProperties = missingProperties.filter(
-                mp => mp !== property.getKey()
-            )
-        }
-
-        // Loop through missing properties
-        for (let j = 0; j < missingProperties.length; j++) {
-            // Create property with blank value
-            const property = new EntryProperty(
-                database.getReactComponent(),
-                missingProperties[j],
-                ""
-            )
-
-            // Add property to entry
-            entry.addProperty(property)
-        }
-    }
+    //
+    //
+    //
 
     const [newColumnTitle, setNewColumnTitle] = useState<string>("")
     const addNewColumn = () => {
@@ -235,19 +254,15 @@ function DatanaseManagerHeaderTitle(props: {
     }
 
     return (
-        <div
-            style={{ cursor: "pointer" }}
-            onClick={startEditing}
-            onBlur={stopEditing}
-        >
+        <HTS.Wrap onClick={startEditing} onBlur={stopEditing}>
             {!isEditing ? (
                 <S.HeaderTitle>{database.getId()}</S.HeaderTitle>
             ) : (
-                <form onSubmit={onEditFormSubmitted}>
-                    <input value={newInput} onChange={onInputChanged} />
-                </form>
+                <HTS.EditForm onSubmit={onEditFormSubmitted}>
+                    <HTS.EditInput value={newInput} onChange={onInputChanged} />
+                </HTS.EditForm>
             )}
-        </div>
+        </HTS.Wrap>
     )
 }
 
@@ -295,35 +310,21 @@ function DatabaseManagerProperty(props: { property: EntryProperty }) {
     }
 
     return (
-        <div
-            onClick={startEditing}
-            onBlur={stopEditing}
-            style={{ cursor: "pointer" }}
-        >
+        <PS.Wrap onClick={startEditing} onBlur={stopEditing}>
             {!isEditing ? (
-                <p>
+                <PS.PropertyValue>
                     {property.getValue() !== "" ? (
                         String(property.getValue())
                     ) : (
-                        <span style={{ color: StyleConventions.errorColor }}>
-                            no value
-                        </span>
-                    )}{" "}
-                    <span
-                        style={{
-                            fontSize: "8px",
-                            color: StyleConventions.secondaryColor
-                        }}
-                    >
-                        {typeof property.getValue()}
-                    </span>
-                </p>
+                        <PS.NoValueText>no value</PS.NoValueText>
+                    )}
+                </PS.PropertyValue>
             ) : (
-                <form onSubmit={onEditFormSubmitted}>
-                    <input value={newInput} onChange={onInputChanged} />
-                </form>
+                <PS.EditForm onSubmit={onEditFormSubmitted}>
+                    <PS.EditInput value={newInput} onChange={onInputChanged} />
+                </PS.EditForm>
             )}
-        </div>
+        </PS.Wrap>
     )
 }
 
@@ -383,22 +384,18 @@ function DatabaseManagerEntryId(props: { entry: Entry; database: Database }) {
     }
 
     return (
-        <div
-            onClick={startEditing}
-            onBlur={stopEditing}
-            style={{ cursor: "pointer", display: "flex" }}
-        >
+        <EIS.Wrap onClick={startEditing} onBlur={stopEditing}>
             {!isEditing ? (
-                <p>{entry.getId()}</p>
+                <EIS.EntryId>{entry.getId()}</EIS.EntryId>
             ) : (
-                <form onSubmit={onEditFormSubmitted}>
-                    <input value={newInput} onChange={onInputChanged} />
-                </form>
+                <EIS.EditForm onSubmit={onEditFormSubmitted}>
+                    <EIS.EditInput value={newInput} onChange={onInputChanged} />
+                </EIS.EditForm>
             )}
             <StyleConventions.SmallErrorButton onClick={onDeleteRow}>
                 X
             </StyleConventions.SmallErrorButton>
-        </div>
+        </EIS.Wrap>
     )
 }
 
@@ -462,7 +459,7 @@ function DatabaseManagerColumnTitle(props: {
     }
 
     return (
-        <div
+        <CTS.Wrap
             style={{ cursor: "pointer" }}
             onClick={startEditing}
             onBlur={stopEditing}
@@ -470,13 +467,13 @@ function DatabaseManagerColumnTitle(props: {
             {!isEditing ? (
                 <S.ColumnTitle>{key}</S.ColumnTitle>
             ) : (
-                <form onSubmit={onEditFormSubmitted}>
-                    <input value={newInput} onChange={onInputChanged} />
-                </form>
+                <CTS.EditForm onSubmit={onEditFormSubmitted}>
+                    <CTS.EditInput value={newInput} onChange={onInputChanged} />
+                </CTS.EditForm>
             )}
             <StyleConventions.SmallErrorButton onClick={onDeleteColumn}>
                 X
             </StyleConventions.SmallErrorButton>
-        </div>
+        </CTS.Wrap>
     )
 }

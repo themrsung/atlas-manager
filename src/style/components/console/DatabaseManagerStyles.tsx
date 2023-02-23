@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import StyleConventions from "../../StyleConventions"
 
 export default class DatabaseManagerStyles {
     static Wrap = styled.div`
@@ -62,4 +63,53 @@ export default class DatabaseManagerStyles {
     static NewRowInput = styled.input`
         font-size: 15px;
     `
+}
+
+export class DatabaseManagerHeaderTitleStyles {
+    static Wrap = styled.div`
+        cursor: pointer;
+    `
+
+    static EditForm = styled.form``
+
+    static EditInput = styled.input``
+}
+
+export class DatabaseManagerPropertyStyles {
+    static Wrap = styled.div`
+        cursor: pointer;
+    `
+
+    static PropertyValue = styled.p``
+
+    static NoValueText = styled.span`
+        color: ${StyleConventions.errorColor};
+    `
+
+    static EditForm = styled.form``
+
+    static EditInput = styled.input``
+}
+
+export class DatabaseManagerEntryIdStyles {
+    static Wrap = styled.div`
+        cursor: pointer;
+        display: flex;
+    `
+
+    static EntryId = styled.p``
+
+    static EditForm = styled.form``
+
+    static EditInput = styled.input``
+}
+
+export class DatabaseManagerColumnTitleStyles {
+    static Wrap = styled.div`
+        cursor: pointer;
+    `
+
+    static EditForm = styled.form``
+
+    static EditInput = styled.input``
 }
