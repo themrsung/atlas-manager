@@ -32,9 +32,9 @@ export default function ConsoleHeader(props: { state: AtlasClientState }) {
     return (
         <S.Wrap>
             {!state.getCurrentUser() && (
-                <StyleConventions.LargeErrorButton>
+                <S.NotLoggedInNoSaveWarningText>
                     YOU ARE NOT LOGGED IN. THIS DATA WILL NOT BE SAVED.
-                </StyleConventions.LargeErrorButton>
+                </S.NotLoggedInNoSaveWarningText>
             )}
             <StyleConventions.LargePositiveButton
                 onClick={() => {
