@@ -33,6 +33,7 @@ export default function Login(props: { state: AtlasClientState }) {
 
         // Login success
         state.setCurrentUser(user)
+        state.pullDatabasesFromServer()
         navigate(RouteNames.Home)
     }
 

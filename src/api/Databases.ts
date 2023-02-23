@@ -38,13 +38,13 @@ export default class Databases {
 
         for (let i = 0; i < databases.length; i++) {
             databasesToSendToServer.push(new AtlasServerDatabase(databases[i]))
-
-            const res = await axios.put(
-                Databases.DATABASES_SERVER_URL + "/" + user.getId(),
-                databasesToSendToServer
-            )
-
-            return res
         }
+
+        const res = await axios.put(
+            Databases.DATABASES_SERVER_URL + "/" + user.getId(),
+            databasesToSendToServer
+        )
+
+        return res
     }
 }

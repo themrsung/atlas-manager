@@ -117,4 +117,9 @@ export default class AtlasClientState {
 
         return user
     }
+
+    logout() {
+        this.currentUser = null
+        this.setDatabases([])
+    }
 }

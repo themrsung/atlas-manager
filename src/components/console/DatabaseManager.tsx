@@ -226,6 +226,7 @@ function DatabaseManagerHeaderTitle(props: {
     state: AtlasClientState
 }) {
     const database = props.database
+    const state = props.state
     const databases = props.state.getDatabases()
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -265,10 +266,27 @@ function DatabaseManagerHeaderTitle(props: {
         setNewInput(e.currentTarget.value)
     }
 
+    const onDatabaseDeleteClicked = () => {
+        if (
+            window.confirm(
+                "Do you really want to delete database " + database.getId()
+            )
+        ) {
+            state.removeDatabase(database)
+        }
+    }
+
     return (
         <HTS.Wrap onClick={startEditing} onBlur={stopEditing}>
             {!isEditing ? (
-                <S.HeaderTitle>{database.getId()}</S.HeaderTitle>
+                <>
+                    <S.HeaderTitle>{database.getId()}</S.HeaderTitle>
+                    <StyleConventions.SmallErrorButton
+                        onClick={onDatabaseDeleteClicked}
+                    >
+                        X
+                    </StyleConventions.SmallErrorButton>
+                </>
             ) : (
                 <HTS.EditForm onSubmit={onEditFormSubmitted}>
                     <HTS.EditInput value={newInput} onChange={onInputChanged} />

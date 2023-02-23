@@ -1,6 +1,8 @@
 import axios from "axios"
 import AtlasClientUser from "../classes/client/AtlasClientUser"
+import AtlasServerDatabase from "../classes/server/AtlasServerDatabase"
 import AtlasServerUser from "../classes/server/AtlasServerUser"
+import Databases from "./Databases"
 
 export default class Auth {
     static AUTH_SERVER_URL = "http://localhost:5000/users"
@@ -30,8 +32,21 @@ export default class Auth {
     static async addUserToServer(user: AtlasClientUser) {
         const serverUser = new AtlasServerUser(user)
 
-        const res = await axios.post(Auth.AUTH_SERVER_URL, serverUser)
-        return res.statusText
+        const defaultDatabase = new AtlasServerDatabase()
+        defaultDatabase.id = "Getting started"
+
+        const userRes = await axios.post(Auth.AUTH_SERVER_URL, serverUser)
+        const dataRes = await axios.post(Databases.DATABASES_SERVER_URL, {
+            id: serverUser.id,
+            "0": defaultDatabase
+        })
+
+        return (
+            "userRes: " +
+            userRes.statusText +
+            " // dataRes: " +
+            dataRes.statusText
+        )
     }
 
     static async findUserWithCredentials(

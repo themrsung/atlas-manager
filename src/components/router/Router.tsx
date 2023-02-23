@@ -5,6 +5,7 @@ import Console from "../../pages/Console"
 import Home from "../../pages/Home"
 import Login from "../../pages/Login"
 import Register from "../../pages/Register"
+import Header from "../Header"
 import { RouteNames } from "./RouteNames"
 
 export default function Router(props: { state: AtlasClientState }) {
@@ -12,8 +13,12 @@ export default function Router(props: { state: AtlasClientState }) {
 
     return (
         <BrowserRouter>
+            <Header state={state} />
             <Routes>
-                <Route path={RouteNames.Home} element={<Home />} />
+                <Route
+                    path={RouteNames.Home}
+                    element={<Home state={state} />}
+                />
                 <Route
                     path={RouteNames.Console}
                     element={<Console state={state} />}

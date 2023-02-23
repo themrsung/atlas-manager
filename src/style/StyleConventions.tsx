@@ -7,6 +7,7 @@ export default class StyleConventions {
     static blackTextColor: string = "#0d0d0d"
     static whiteTextColor: string = "#f2f2f2"
 
+    static positiveColor: string = "#00cc00"
     static warningColor: string = "#ffbd59"
     static errorColor: string = "#ff1100"
 
@@ -66,6 +67,17 @@ export default class StyleConventions {
         }
     `
 
+    static __positiveButtonProperties = `
+        border-color: ${StyleConventions.positiveColor};
+        color: ${StyleConventions.positiveColor};
+        background-color: transparent;
+
+        &:hover {
+            color: ${StyleConventions.whiteTextColor};
+            background-color: ${StyleConventions.positiveColor};
+        }        
+    `
+
     static __warningButtonProperties = `
         border-color: ${StyleConventions.warningColor};
         color: ${StyleConventions.warningColor};
@@ -119,6 +131,22 @@ export default class StyleConventions {
         ${StyleConventions.__sharedButtonProperties}
         ${StyleConventions.__largeButtonProperties}
         ${StyleConventions.__secondaryButtonProperties}
+    `
+
+    static SmallPositiveButton = styled.button`
+        ${StyleConventions.__sharedButtonProperties}
+        ${StyleConventions.__smallButtonProperties}
+        ${StyleConventions.__positiveButtonProperties}
+    `
+    static MediumPositiveButton = styled.button`
+        ${StyleConventions.__sharedButtonProperties}
+        ${StyleConventions.__mediumButtonProperties}
+        ${StyleConventions.__positiveButtonProperties}
+    `
+    static LargePositiveButton = styled.button`
+        ${StyleConventions.__sharedButtonProperties}
+        ${StyleConventions.__largeButtonProperties}
+        ${StyleConventions.__positiveButtonProperties}
     `
 
     static SmallWarningButton = styled.button`
