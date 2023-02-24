@@ -71,8 +71,24 @@ export default class Auth {
     static async addUserToServer(user: AtlasClientUser) {
         const serverUser = new AtlasServerUser(user)
 
-        const defaultDatabase = new AtlasServerDatabase()
-        defaultDatabase.id = "Getting started"
+        const startingDatabaseObject = {
+            id: "Getting Started",
+            entries: [
+                {
+                    id: "Row 1",
+                    properties: [
+                        {
+                            key: "Column 1",
+                            value: "You can type a string, number, or boolean."
+                        }
+                    ]
+                }
+            ]
+        }
+
+        const defaultDatabase = AtlasServerDatabase.fromObject(
+            startingDatabaseObject
+        )
 
         const userRes = await axios.post(Auth.AUTH_SERVER_URL, serverUser)
         const dataRes = await axios.post(Databases.DATABASES_SERVER_URL, {
