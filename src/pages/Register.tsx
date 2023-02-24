@@ -21,6 +21,8 @@ export default function Register(props: { state: AtlasClientState }) {
     const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
     const [isDisplayNameValid, setIsDisplayNameValid] = useState<boolean>(false)
 
+    const [isIdTaken, setIsIdTaken] = useState<boolean>(false)
+
     const [hasUserChangedId, setHasUserChangedId] = useState<boolean>(false)
     const [hasUserChangedPassword, setHasUserChangedPassword] =
         useState<boolean>(false)
@@ -49,7 +51,12 @@ export default function Register(props: { state: AtlasClientState }) {
             !isEmailValid ||
             !isDisplayNameValid
         )
-            return false
+            return
+
+        if (await Auth.isIdTaken(id, state.getReactComponent())) {
+            setIsIdTaken(true)
+            return
+        }
 
         const user = new AtlasClientUser(state.getReactComponent())
 
@@ -85,6 +92,11 @@ export default function Register(props: { state: AtlasClientState }) {
                             ID must be longer than 0 characters.
                         </S.RegisterInputNotOKInfoText>
                     ))}
+                {isIdTaken && (
+                    <S.RegisterInputNotOKInfoText>
+                        ID is already taken.
+                    </S.RegisterInputNotOKInfoText>
+                )}
 
                 <S.RegisterLabel htmlFor="pw-input">Password</S.RegisterLabel>
                 <S.RegisterInput

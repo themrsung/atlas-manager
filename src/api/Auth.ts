@@ -39,10 +39,10 @@ export default class Auth {
     static async isIdTaken(id: string, reactComponent: React.Component) {
         const users = await Auth.getUsers(reactComponent)
         for (let i = 0; i < users.length; i++) {
-            if (users[i].getId() === id) return false
+            if (users[i].getId() === id) return true
         }
 
-        return true
+        return false
     }
 
     static isPasswordValid(password: string) {
