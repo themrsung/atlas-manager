@@ -4,7 +4,11 @@ import StyleConventions from "../StyleConventions"
 export default class RegisterStyles {
     static Wrap = styled.div``
 
-    static RegisterForm = styled.form``
+    static RegisterForm = styled.form`
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+    `
 
     static RegisterLabel = styled.label``
 

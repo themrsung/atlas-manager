@@ -70,6 +70,7 @@ export default function Register(props: { state: AtlasClientState }) {
                     id="id-input"
                     value={id}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setHasUserChangedId(true)
                         setId(e.currentTarget.value)
                         checkIdValidity()
                     }}
@@ -91,6 +92,7 @@ export default function Register(props: { state: AtlasClientState }) {
                     type="password"
                     value={password}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setHasUserChangedPassword(true)
                         setPassword(e.currentTarget.value)
                         checkPasswordValidity()
                     }}
@@ -102,13 +104,12 @@ export default function Register(props: { state: AtlasClientState }) {
                         </S.RegisterInputOKInfoText>
                     ) : (
                         <S.RegisterInputNotOKInfoText>
-                            Password must be longer than 7 charcters.
+                            Please check password.
                         </S.RegisterInputNotOKInfoText>
                     )
                 ) : (
                     <S.RegisterInputInitialInfoText>
-                        Password may contain A-Z, a-z, 0-9 and !, @, #, $, %, ^,
-                        &, *
+                        Password must be longer than 7 characters.
                     </S.RegisterInputInitialInfoText>
                 )}
 
@@ -117,6 +118,7 @@ export default function Register(props: { state: AtlasClientState }) {
                     id="email-input"
                     value={email}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setHasUserChangedEmail(true)
                         setEmail(e.currentTarget.value)
                         checkEmailValidity()
                     }}
@@ -137,19 +139,21 @@ export default function Register(props: { state: AtlasClientState }) {
                     id="name-input"
                     value={displayName}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setHasUserChangedDisplayName(true)
                         setDisplayName(e.currentTarget.value)
                         checkDisplayNameValidity()
                     }}
                 />
-                {hasUserChangedDisplayName && isDisplayNameValid ? (
-                    <S.RegisterInputOKInfoText>
-                        Name is valid.
-                    </S.RegisterInputOKInfoText>
-                ) : (
-                    <S.RegisterInputNotOKInfoText>
-                        Name bust be longer than 2 charcters.
-                    </S.RegisterInputNotOKInfoText>
-                )}
+                {hasUserChangedDisplayName &&
+                    (isDisplayNameValid ? (
+                        <S.RegisterInputOKInfoText>
+                            Name is valid.
+                        </S.RegisterInputOKInfoText>
+                    ) : (
+                        <S.RegisterInputNotOKInfoText>
+                            Name bust be longer than 3 charcters.
+                        </S.RegisterInputNotOKInfoText>
+                    ))}
 
                 <StyleConventions.LargePrimaryButton type="submit">
                     Register
