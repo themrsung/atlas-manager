@@ -7,6 +7,8 @@ export default class DatabaseManagerStyles {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        width: 100%;
     `
 
     static Header = styled.div`
@@ -14,6 +16,8 @@ export default class DatabaseManagerStyles {
         flex-direction: row;
         align-items: center;
         justify-content: stretch;
+
+        width: 100%;
     `
 
     static HeaderTitle = styled.h1`
@@ -25,6 +29,9 @@ export default class DatabaseManagerStyles {
         flex-direction: column;
         align-items: center;
         justify-content: stretch;
+
+        width: 100%;
+        overflow-x: auto;
     `
 
     static Columns = styled.div`
@@ -32,6 +39,8 @@ export default class DatabaseManagerStyles {
         flex-direction: row;
         align-items: center;
         justify-content: stretch;
+
+        width: 100%;
     `
 
     static Column = styled.div`

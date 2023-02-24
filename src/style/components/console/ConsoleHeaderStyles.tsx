@@ -2,7 +2,9 @@ import styled from "styled-components"
 import StyleConventions from "../../StyleConventions"
 
 export default class ConsoleHeaderStyles {
-    static Wrap = styled.div``
+    static Wrap = styled.div`
+        width: 100%;
+    `
 
     static NotLoggedInNoSaveWarningText = styled.p`
         font-size: 30px;
