@@ -83,6 +83,15 @@ export default function DatabaseManager(props: {
     const [newColumnTitle, setNewColumnTitle] = useState<string>("")
     const addNewColumn = () => {
         if (newColumnTitle === "") return
+
+        if (database.getEntries().length === 0) {
+            const entry = database.addEntry(
+                new AtlasClientEntry(database.getReactComponent())
+            )
+
+            entry.setId("newRow")
+        }
+
         for (let i = 0; i < keys.length; i++) {
             if (keys[i].toLowerCase() === newColumnTitle.toLowerCase()) return
         }
