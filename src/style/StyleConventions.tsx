@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
 export default class StyleConventions {
-    static primaryColor: string = "#a72f09"
-    static secondaryColor: string = "#da7140"
+    static primaryColor: string = "#419dff"
+    static secondaryColor: string = "#0b6f9d"
 
     static blackTextColor: string = "#0d0d0d"
     static whiteTextColor: string = "#f2f2f2"
