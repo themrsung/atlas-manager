@@ -185,9 +185,9 @@ export default function DatabaseManager(props: {
                                 }}
                                 placeholder="New column..."
                             />
-                            <StyleConventions.SmallPrimaryButton type="submit">
+                            <StyleConventions.SmallPositiveButton type="submit">
                                 +
-                            </StyleConventions.SmallPrimaryButton>
+                            </StyleConventions.SmallPositiveButton>
                         </S.NewColumnForm>
                     </S.Column>
                 </S.Columns>
@@ -207,9 +207,9 @@ export default function DatabaseManager(props: {
                             }}
                             placeholder="New row..."
                         />
-                        <StyleConventions.SmallPrimaryButton type="submit">
+                        <StyleConventions.SmallPositiveButton type="submit">
                             +
-                        </StyleConventions.SmallPrimaryButton>
+                        </StyleConventions.SmallPositiveButton>
                     </S.NewRowForm>
                 </S.NewRowBar>
             </S.Body>
