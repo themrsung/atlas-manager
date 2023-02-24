@@ -74,6 +74,13 @@ export default function Register(props: { state: AtlasClientState }) {
     useEffect(checkEmailValidity, [email])
     useEffect(checkDisplayNameValidity, [displayName])
 
+    // prettier-ignore
+    const onTermsOfServiceClick = () => { navigate(RouteNames.TermsOfService) }
+    // prettier-ignore
+    const onPrivacyPolicyClick = () => { navigate(RouteNames.PrivacyPolicy) }
+    // prettier-ignore
+    const onEndUserLicenseAgreementClick = () => { navigate(RouteNames.EndUserLicenseAgreement) }
+
     return (
         <S.Wrap>
             <S.RegisterForm onSubmit={onRegisterFormSubmitted}>
@@ -168,6 +175,31 @@ export default function Register(props: { state: AtlasClientState }) {
                         </S.RegisterInputNotOKInfoText>
                     ))}
 
+                <S.RegisterUserAgreementText>
+                    By proceeding with registration, you are agreeing to our{" "}
+                    {
+                        <S.RegisterUserAgreementLink
+                            onClick={onTermsOfServiceClick}
+                        >
+                            Terms of Service
+                        </S.RegisterUserAgreementLink>
+                    }
+                    ,{" "}
+                    {
+                        <S.RegisterUserAgreementLink
+                            onClick={onPrivacyPolicyClick}
+                        >
+                            Privacy Policy
+                        </S.RegisterUserAgreementLink>
+                    }
+                    , and{" "}
+                    <S.RegisterUserAgreementLink
+                        onClick={onEndUserLicenseAgreementClick}
+                    >
+                        EULA
+                    </S.RegisterUserAgreementLink>
+                    .
+                </S.RegisterUserAgreementText>
                 <StyleConventions.LargePrimaryButton type="submit">
                     Register
                 </StyleConventions.LargePrimaryButton>

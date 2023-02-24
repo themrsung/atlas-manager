@@ -27,4 +27,13 @@ export default class RegisterStyles {
         font-size: 10px;
         color: ${StyleConventions.errorColor};
     `
+
+    static RegisterUserAgreementText = styled.p`
+        font-size: 12px;
+    `
+
+    static RegisterUserAgreementLink = styled.span`
+        color: ${StyleConventions.primaryColor};
+        cursor: pointer;
+    `
 }
