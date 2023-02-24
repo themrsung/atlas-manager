@@ -1,6 +1,6 @@
 import AtlasClientState from "../classes/client/AtlasClientState"
 import S from "../style/pages/RegisterStyles"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import StyleConventions from "../style/StyleConventions"
 import AtlasClientUser from "../classes/client/AtlasClientUser"
 import Auth from "../api/Auth"
@@ -69,6 +69,11 @@ export default function Register(props: { state: AtlasClientState }) {
         navigate(RouteNames.Home)
     }
 
+    useEffect(checkIdValidity, [id])
+    useEffect(checkPasswordValidity, [password])
+    useEffect(checkEmailValidity, [email])
+    useEffect(checkDisplayNameValidity, [displayName])
+
     return (
         <S.Wrap>
             <S.RegisterForm onSubmit={onRegisterFormSubmitted}>
@@ -79,7 +84,6 @@ export default function Register(props: { state: AtlasClientState }) {
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setHasUserChangedId(true)
                         setId(e.currentTarget.value)
-                        checkIdValidity()
                     }}
                 />
                 {hasUserChangedId &&
@@ -106,7 +110,6 @@ export default function Register(props: { state: AtlasClientState }) {
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setHasUserChangedPassword(true)
                         setPassword(e.currentTarget.value)
-                        checkPasswordValidity()
                     }}
                 />
                 {hasUserChangedPassword ? (
@@ -132,7 +135,6 @@ export default function Register(props: { state: AtlasClientState }) {
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setHasUserChangedEmail(true)
                         setEmail(e.currentTarget.value)
-                        checkEmailValidity()
                     }}
                 />
                 {hasUserChangedEmail &&
@@ -153,7 +155,6 @@ export default function Register(props: { state: AtlasClientState }) {
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setHasUserChangedDisplayName(true)
                         setDisplayName(e.currentTarget.value)
-                        checkDisplayNameValidity()
                     }}
                 />
                 {hasUserChangedDisplayName &&
