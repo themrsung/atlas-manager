@@ -31,7 +31,12 @@ export default function ConsoleHeader(props: { state: AtlasClientState }) {
 
     return (
         <S.Wrap>
-            {!state.getCurrentUser() && (
+            {state.getCurrentUser() ? (
+                <S.NoSaveDataLossWarningText>
+                    Please click [Save] after editing. Your data will be lost
+                    otherwise.
+                </S.NoSaveDataLossWarningText>
+            ) : (
                 <S.NotLoggedInNoSaveWarningText>
                     YOU ARE NOT LOGGED IN. THIS DATA WILL NOT BE SAVED.
                 </S.NotLoggedInNoSaveWarningText>

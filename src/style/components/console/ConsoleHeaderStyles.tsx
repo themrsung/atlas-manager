@@ -10,6 +10,12 @@ export default class ConsoleHeaderStyles {
         color: ${StyleConventions.errorColor};
     `
 
+    static NoSaveDataLossWarningText = styled.p`
+        font-size: 18px;
+        font-weight: bold;
+        color: ${StyleConventions.errorColor};
+    `
+
     static NewDatabaseForm = styled.form``
 
     static NewDatabaseInput = styled.input``
