@@ -156,6 +156,7 @@ export default function DatabaseManager(props: {
                                     key={entry.getId()}
                                     entry={entry}
                                     database={database}
+                                    state={state}
                                 />
                             )
                         })}
@@ -168,6 +169,7 @@ export default function DatabaseManager(props: {
                                     keyName={key}
                                     keys={keys}
                                     database={database}
+                                    state={state}
                                 />
                                 {database.getEntries().map(entry => {
                                     return (
@@ -400,9 +402,11 @@ function DatabaseManagerProperty(props: {
 function DatabaseManagerEntryId(props: {
     entry: AtlasClientEntry
     database: AtlasClientDatabase
+    state: AtlasClientState
 }) {
     const entry = props.entry
     const database = props.database
+    const state = props.state
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [newInput, setNewInput] = useState<string>(entry.getId())
@@ -449,6 +453,28 @@ function DatabaseManagerEntryId(props: {
         ) {
             database.removeEntry(entry)
         }
+
+        state.setMessageWindowProperties(
+            new MessageWindowProperties(
+                state.getReactComponent(),
+                true,
+                "Do you really want to delete row " + entry.getId() + "?",
+                [
+                    new MessageWindowButtonProperties(
+                        state.getReactComponent(),
+                        "Yes",
+                        () => {
+                            database.removeEntry(entry)
+                        },
+                        MessageWindowButtonType.Error
+                    ),
+                    new MessageWindowButtonProperties(
+                        state.getReactComponent(),
+                        "No"
+                    )
+                ]
+            )
+        )
     }
 
     return (
@@ -475,10 +501,12 @@ function DatabaseManagerColumnTitle(props: {
     keyName: string
     keys: string[]
     database: AtlasClientDatabase
+    state: AtlasClientState
 }) {
     const key = props.keyName
     const keys = props.keys
     const database = props.database
+    const state = props.state
 
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const [newInput, setNewInput] = useState<string>(key)
@@ -517,13 +545,30 @@ function DatabaseManagerColumnTitle(props: {
     }
 
     const onDeleteColumn = () => {
-        if (
-            window.confirm("Do you really want to delete column " + key + "?")
-        ) {
-            database.getEntries().forEach(entry => {
-                entry.removePropertyByKey(key)
-            })
-        }
+        state.setMessageWindowProperties(
+            new MessageWindowProperties(
+                state.getReactComponent(),
+                true,
+                "Do you really want to delete column " + key + "?",
+
+                [
+                    new MessageWindowButtonProperties(
+                        state.getReactComponent(),
+                        "Yes",
+                        () => {
+                            database.getEntries().forEach(entry => {
+                                entry.removePropertyByKey(key)
+                            })
+                        },
+                        MessageWindowButtonType.Error
+                    ),
+                    new MessageWindowButtonProperties(
+                        state.getReactComponent(),
+                        "No"
+                    )
+                ]
+            )
+        )
     }
 
     return (
