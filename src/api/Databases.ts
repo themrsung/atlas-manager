@@ -5,46 +5,46 @@ import AtlasServerDatabase from "../classes/server/AtlasServerDatabase"
 import { ApiSettings } from "./ApiSettings"
 
 export default class Databases {
-    static DATABASES_SERVER_URL = ApiSettings.SERVER_BASE_URL + "/databases"
+   static DATABASES_SERVER_URL = ApiSettings.SERVER_BASE_URL + "/databases"
 
-    static async getDatabasesOfUser(
-        reactComponent: React.Component,
-        user: AtlasClientUser
-    ) {
-        const databases: AtlasClientDatabase[] = []
+   static async getDatabasesOfUser(
+      reactComponent: React.Component,
+      user: AtlasClientUser
+   ) {
+      const databases: AtlasClientDatabase[] = []
 
-        const res = await axios.get(
-            Databases.DATABASES_SERVER_URL + "/" + user.getId()
-        )
-        if (!res.data) return []
+      const res = await axios.get(
+         Databases.DATABASES_SERVER_URL + "/" + user.getId()
+      )
+      if (!res.data) return []
 
-        // Converts server database data to client database data
-        for (let i = 0; i < Object.keys(res.data).length - 1; i++) {
-            const serverDatabase = AtlasServerDatabase.fromObject(res.data[i])
+      // Converts server database data to client database data
+      for (let i = 0; i < Object.keys(res.data).length - 1; i++) {
+         const serverDatabase = AtlasServerDatabase.fromObject(res.data[i])
 
-            if (!serverDatabase) return null
+         if (!serverDatabase) return null
 
-            databases.push(serverDatabase.toClientDatabase(reactComponent))
-        }
+         databases.push(serverDatabase.toClientDatabase(reactComponent))
+      }
 
-        return databases
-    }
+      return databases
+   }
 
-    static async setDatabasesOfUser(
-        databases: AtlasClientDatabase[],
-        user: AtlasClientUser
-    ) {
-        const databasesToSendToServer: AtlasServerDatabase[] = []
+   static async setDatabasesOfUser(
+      databases: AtlasClientDatabase[],
+      user: AtlasClientUser
+   ) {
+      const databasesToSendToServer: AtlasServerDatabase[] = []
 
-        for (let i = 0; i < databases.length; i++) {
-            databasesToSendToServer.push(new AtlasServerDatabase(databases[i]))
-        }
+      for (let i = 0; i < databases.length; i++) {
+         databasesToSendToServer.push(new AtlasServerDatabase(databases[i]))
+      }
 
-        const res = await axios.put(
-            Databases.DATABASES_SERVER_URL + "/" + user.getId(),
-            databasesToSendToServer
-        )
+      const res = await axios.put(
+         Databases.DATABASES_SERVER_URL + "/" + user.getId(),
+         databasesToSendToServer
+      )
 
-        return res
-    }
+      return res
+   }
 }

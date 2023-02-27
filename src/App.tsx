@@ -5,15 +5,15 @@ import Router from "./components/router/Router"
 import StyleConventions from "./style/StyleConventions"
 
 class App extends React.Component {
-    state: AtlasClientState = new AtlasClientState(this)
+   state: AtlasClientState = new AtlasClientState(this)
 
-    render() {
-        return (
-            <StyleConventions.GlobalStyleWrap>
-                <Router state={this.state} />
-            </StyleConventions.GlobalStyleWrap>
-        )
-    }
+   render() {
+      return (
+         <StyleConventions.GlobalStyleWrap>
+            <Router state={this.state} />
+         </StyleConventions.GlobalStyleWrap>
+      )
+   }
 }
 
 export default App

@@ -5,53 +5,56 @@ import StyleConventions from "../style/StyleConventions"
 import { RouteNames } from "./router/RouteNames"
 
 export default function Header(props: { state: AtlasClientState }) {
-    const state = props.state
-    const navigate = useNavigate()
+   const state = props.state
+   const navigate = useNavigate()
 
-    return (
-        <S.Wrap>
-            <StyleConventions.LargePrimaryButton
-                onClick={() => {
-                    navigate(RouteNames.Home)
-                }}
+   return (
+      <S.Wrap>
+         <S.Left></S.Left>
+         <S.Right>
+            <StyleConventions.MediumPrimaryButton
+               onClick={() => {
+                  navigate(RouteNames.Home)
+               }}
             >
-                Home
-            </StyleConventions.LargePrimaryButton>
-            <StyleConventions.LargePrimaryButton
-                onClick={() => {
-                    navigate(RouteNames.Console)
-                }}
+               Home
+            </StyleConventions.MediumPrimaryButton>
+            <StyleConventions.MediumPrimaryButton
+               onClick={() => {
+                  navigate(RouteNames.Console)
+               }}
             >
-                Console
-            </StyleConventions.LargePrimaryButton>
+               Console
+            </StyleConventions.MediumPrimaryButton>
 
             {!state.getCurrentUser() ? (
-                <>
-                    <StyleConventions.LargePrimaryButton
-                        onClick={() => {
-                            navigate(RouteNames.Login)
-                        }}
-                    >
-                        Login
-                    </StyleConventions.LargePrimaryButton>
-                    <StyleConventions.LargePrimaryButton
-                        onClick={() => {
-                            navigate(RouteNames.Register)
-                        }}
-                    >
-                        Register
-                    </StyleConventions.LargePrimaryButton>
-                </>
+               <>
+                  <StyleConventions.MediumPrimaryButton
+                     onClick={() => {
+                        navigate(RouteNames.Login)
+                     }}
+                  >
+                     Login
+                  </StyleConventions.MediumPrimaryButton>
+                  <StyleConventions.MediumPrimaryButton
+                     onClick={() => {
+                        navigate(RouteNames.Register)
+                     }}
+                  >
+                     Register
+                  </StyleConventions.MediumPrimaryButton>
+               </>
             ) : (
-                <StyleConventions.LargeWarningButton
-                    onClick={() => {
-                        state.logout()
-                        navigate(RouteNames.Home)
-                    }}
-                >
-                    Logout
-                </StyleConventions.LargeWarningButton>
+               <StyleConventions.MediumWarningButton
+                  onClick={() => {
+                     state.logout()
+                     navigate(RouteNames.Home)
+                  }}
+               >
+                  Logout
+               </StyleConventions.MediumWarningButton>
             )}
-        </S.Wrap>
-    )
+         </S.Right>
+      </S.Wrap>
+   )
 }
