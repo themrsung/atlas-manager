@@ -446,14 +446,6 @@ function DatabaseManagerEntryId(props: {
     }
 
     const onDeleteRow = () => {
-        if (
-            window.confirm(
-                "Do you really want to delete row " + entry.getId() + "?"
-            )
-        ) {
-            database.removeEntry(entry)
-        }
-
         state.setMessageWindowProperties(
             new MessageWindowProperties(
                 state.getReactComponent(),
