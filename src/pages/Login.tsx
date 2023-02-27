@@ -7,60 +7,68 @@ import StyleConventions from "../style/StyleConventions"
 import Auth from "../api/Auth"
 
 export default function Login(props: { state: AtlasClientState }) {
-   const state = props.state
-   const navigate = useNavigate()
+    const state = props.state
+    const navigate = useNavigate()
 
-   const [id, setId] = useState<string>("")
-   const [password, setPassword] = useState<string>("")
+    const [id, setId] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
 
-   const onRegisterFormSubmitted = async (
-      e: React.FormEvent<HTMLFormElement>
-   ) => {
-      e.preventDefault()
+    const onLoginFormSubmitted = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
+        e.preventDefault()
 
-      const user = await Auth.findUserWithCredentials(
-         state.getReactComponent(),
-         id,
-         password
-      )
+        const user = await Auth.findUserWithCredentials(
+            state.getReactComponent(),
+            id,
+            password
+        )
 
-      if (!user) {
-         // Login failed
-         return
-      }
+        if (!user) {
+            // Login failed
+            return
+        }
 
-      // Login success
-      state.setCurrentUser(user)
-      state.pullDatabasesFromServer()
-      navigate(RouteNames.Home)
-   }
+        // Login success
+        state.setCurrentUser(user)
+        state.pullDatabasesFromServer()
+        navigate(RouteNames.Home)
+    }
 
-   return (
-      <S.Wrap>
-         <S.LoginForm onSubmit={onRegisterFormSubmitted}>
-            <S.LoginLabel htmlFor="id-input">ID</S.LoginLabel>
-            <S.LoginInput
-               id="id-input"
-               value={id}
-               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setId(e.currentTarget.value)
-               }}
-            />
+    const onForgotPasswordClicked = () => {
+        alert("Not supported yet. Contact themrsung@gmail.com.")
+    }
 
-            <S.LoginLabel htmlFor="pw-input">Password</S.LoginLabel>
-            <S.LoginInput
-               id="pw-input"
-               type="password"
-               value={password}
-               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setPassword(e.currentTarget.value)
-               }}
-            />
+    return (
+        <S.Wrap>
+            <S.LoginForm onSubmit={onLoginFormSubmitted}>
+                <S.LoginLabel htmlFor="id-input">ID</S.LoginLabel>
+                <S.LoginInput
+                    id="id-input"
+                    value={id}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setId(e.currentTarget.value)
+                    }}
+                />
 
-            <StyleConventions.LargePrimaryButton type="submit">
-               Login
-            </StyleConventions.LargePrimaryButton>
-         </S.LoginForm>
-      </S.Wrap>
-   )
+                <S.LoginLabel htmlFor="pw-input">Password</S.LoginLabel>
+                <S.LoginInput
+                    id="pw-input"
+                    type="password"
+                    value={password}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setPassword(e.currentTarget.value)
+                    }}
+                />
+
+                <S.LoginForgotPasswordLink onClick={onForgotPasswordClicked}>
+                    Forgot Password?
+                </S.LoginForgotPasswordLink>
+
+                <StyleConventions.LargePrimaryButton type="submit">
+                    Login
+                </StyleConventions.LargePrimaryButton>
+            </S.LoginForm>
+        </S.Wrap>
+    )
 }

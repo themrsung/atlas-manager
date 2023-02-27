@@ -1,125 +1,147 @@
 import Databases from "../../api/Databases"
 import AtlasClientUser from "./AtlasClientUser"
 import AtlasClientDatabase from "./AtlasClientDatabase"
+import MessageWindowProperties from "./messageWindow/MessageWindowProperties"
 
 export default class AtlasClientState {
-   constructor(reactComponent: React.Component) {
-      this.reactComponent = reactComponent
-   }
+    constructor(reactComponent: React.Component) {
+        this.reactComponent = reactComponent
+    }
 
-   // React Component
-   // The component in which this state resides in. Will be used induce to re-render on state change.
-   private reactComponent: React.Component
+    // React Component
+    // The component in which this state resides in. Will be used induce to re-render on state change.
+    private reactComponent: React.Component
 
-   // prettier-ignore
-   getReactComponent() { return this.reactComponent }
+    // prettier-ignore
+    getReactComponent() { return this.reactComponent }
 
-   setReactComponent(reactComponent: React.Component) {
-      this.reactComponent = reactComponent
-      this.databases.forEach(db => {
-         db.setReactComponent(reactComponent)
-      })
-      if (this.currentUser) this.currentUser.setReactComponent(reactComponent)
-   }
+    setReactComponent(reactComponent: React.Component) {
+        this.reactComponent = reactComponent
+        this.databases.forEach(db => {
+            db.setReactComponent(reactComponent)
+        })
+        if (this.currentUser) this.currentUser.setReactComponent(reactComponent)
+    }
 
-   //
-   //
-   //
+    //
+    //
+    //
 
-   // Refresh
-   // Induces re-render by calling this.reactComponent.forceUpdate(). Call after any altering of state variables.
-   // prettier-ignore
-   refresh() { this.reactComponent.forceUpdate() }
+    // Refresh
+    // Induces re-render by calling this.reactComponent.forceUpdate(). Call after any altering of state variables.
+    // prettier-ignore
+    refresh() { this.reactComponent.forceUpdate() }
 
-   //
-   //
-   //
+    //
+    //
+    //
 
-   // Databases
-   // All databases within this state are stored here.
-   private databases: AtlasClientDatabase[] = []
+    // Databases
+    // All databases within this state are stored here.
+    private databases: AtlasClientDatabase[] = []
 
-   // prettier-ignore
-   getDatabases() { return this.databases }
+    // prettier-ignore
+    getDatabases() { return this.databases }
 
-   // Contingency getter in case two or more databases with same id exist.
-   // prettier-ignore
-   getDatabasesById(id: string) { return this.getDatabases().filter(db => db.getId() === id) }
+    // Contingency getter in case two or more databases with same id exist.
+    // prettier-ignore
+    getDatabasesById(id: string) { return this.getDatabases().filter(db => db.getId() === id) }
 
-   // Conventional getter, returns first database matching id.
-   // prettier-ignore
-   getDatabaseById(id: string) { return this.getDatabasesById(id)[0] }
+    // Conventional getter, returns first database matching id.
+    // prettier-ignore
+    getDatabaseById(id: string) { return this.getDatabasesById(id)[0] }
 
-   // Destructive action, avoid if possible.
-   setDatabases(databases: AtlasClientDatabase[]) {
-      this.databases = databases
-      this.refresh()
-   }
+    // Destructive action, avoid if possible.
+    setDatabases(databases: AtlasClientDatabase[]) {
+        this.databases = databases
+        this.refresh()
+    }
 
-   // Adds database to state.
-   addDatabase(database: AtlasClientDatabase) {
-      const databases = this.getDatabases()
-      databases.push(database)
+    // Adds database to state.
+    addDatabase(database: AtlasClientDatabase) {
+        const databases = this.getDatabases()
+        databases.push(database)
 
-      this.setDatabases(databases)
-      return database
-   }
+        this.setDatabases(databases)
+        return database
+    }
 
-   // Removes all instances of given database or databases.
-   // prettier-ignore
-   removeDatabase(database: AtlasClientDatabase) { this.setDatabases(this.databases.filter(db => db !== database)) }
-   // prettier-ignore
-   removeDatabases(databases: AtlasClientDatabase[]) { databases.forEach(db => this.removeDatabase(db)) }
-   // prettier-ignore
-   removeDatabaseById(id: string) { this.removeDatabases(this.getDatabasesById(id)) }
+    // Removes all instances of given database or databases.
+    // prettier-ignore
+    removeDatabase(database: AtlasClientDatabase) { this.setDatabases(this.databases.filter(db => db !== database)) }
+    // prettier-ignore
+    removeDatabases(databases: AtlasClientDatabase[]) { databases.forEach(db => this.removeDatabase(db)) }
+    // prettier-ignore
+    removeDatabaseById(id: string) { this.removeDatabases(this.getDatabasesById(id)) }
 
-   // Pulls databases of this.currentUser and sets this.databases accordingly.
-   async pullDatabasesFromServer() {
-      if (!this.currentUser) return []
+    // Pulls databases of this.currentUser and sets this.databases accordingly.
+    async pullDatabasesFromServer() {
+        if (!this.currentUser) return []
 
-      const databases = await Databases.getDatabasesOfUser(
-         this.reactComponent,
-         this.currentUser
-      )
+        const databases = await Databases.getDatabasesOfUser(
+            this.reactComponent,
+            this.currentUser
+        )
 
-      if (!databases) return []
+        if (!databases) return []
 
-      this.setDatabases(databases)
-   }
+        this.setDatabases(databases)
+    }
 
-   // Pushes databases of client to server
-   async pushDatabasesToServer() {
-      if (!this.currentUser) return ""
+    // Pushes databases of client to server
+    async pushDatabasesToServer() {
+        if (!this.currentUser) return ""
 
-      const res = await Databases.setDatabasesOfUser(
-         this.databases,
-         this.currentUser
-      )
+        const res = await Databases.setDatabasesOfUser(
+            this.databases,
+            this.currentUser
+        )
 
-      if (!res) return "error"
-      return res.statusText
-   }
+        if (!res) return "error"
+        return res.statusText
+    }
 
-   //
-   //
-   //
+    //
+    //
+    //
 
-   // Current user
-   private currentUser: AtlasClientUser | null = null
+    // Current user
+    private currentUser: AtlasClientUser | null = null
 
-   getCurrentUser() {
-      return this.currentUser
-   }
+    getCurrentUser() {
+        return this.currentUser
+    }
 
-   setCurrentUser(user: AtlasClientUser) {
-      this.currentUser = user
-      this.refresh()
+    setCurrentUser(user: AtlasClientUser) {
+        this.currentUser = user
+        this.refresh()
 
-      return user
-   }
+        return user
+    }
 
-   logout() {
-      this.currentUser = null
-      this.setDatabases([])
-   }
+    logout() {
+        this.currentUser = null
+        this.setDatabases([])
+    }
+
+    //
+    //
+    //
+
+    private messageWindowProperties: MessageWindowProperties | null = null
+
+    getMessageWindowProperties() {
+        return this.messageWindowProperties
+    }
+
+    setMessageWindowProperties(
+        properties: MessageWindowProperties = new MessageWindowProperties(
+            this.getReactComponent()
+        )
+    ) {
+        this.messageWindowProperties = properties
+        this.refresh()
+
+        return properties
+    }
 }

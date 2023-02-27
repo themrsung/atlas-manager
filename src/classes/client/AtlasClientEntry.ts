@@ -1,98 +1,98 @@
 import AtlasClientEntryProperty from "./AtlasClientEntryProperty"
 
 export default class AtlasClientEntry {
-   constructor(reactComponent: React.Component) {
-      this.reactComponent = reactComponent
-   }
+    constructor(reactComponent: React.Component) {
+        this.reactComponent = reactComponent
+    }
 
-   // React Component
-   // The component in which this state resides in. Will be used induce to re-render on state change.
-   private reactComponent: React.Component
+    // React Component
+    // The component in which this state resides in. Will be used induce to re-render on state change.
+    private reactComponent: React.Component
 
-   // prettier-ignore
-   getReactComponent() { return this.reactComponent }
+    // prettier-ignore
+    getReactComponent() { return this.reactComponent }
 
-   // DO NOT CALL DIRECTLY. CALL AtlasClientState.setReactComponent() INSTEAD.
-   setReactComponent(reactComponent: React.Component) {
-      this.reactComponent = reactComponent
-      this.properties.forEach(property => {
-         property.setReactComponent(reactComponent)
-      })
-   }
+    // DO NOT CALL DIRECTLY. CALL AtlasClientState.setReactComponent() INSTEAD.
+    setReactComponent(reactComponent: React.Component) {
+        this.reactComponent = reactComponent
+        this.properties.forEach(property => {
+            property.setReactComponent(reactComponent)
+        })
+    }
 
-   //
-   //
-   //
+    //
+    //
+    //
 
-   // Refresh
-   // Induces re-render by calling this.reactComponent.forceUpdate(). Call after any altering of state variables.
-   // prettier-ignore
-   refresh() { this.reactComponent.forceUpdate() }
+    // Refresh
+    // Induces re-render by calling this.reactComponent.forceUpdate(). Call after any altering of state variables.
+    // prettier-ignore
+    refresh() { this.reactComponent.forceUpdate() }
 
-   //
-   //
-   //
+    //
+    //
+    //
 
-   // ID
-   // Unique identifier of this entry.
+    // ID
+    // Unique identifier of this entry.
 
-   private id: string = ""
+    private id: string = ""
 
-   // prettier-ignore
-   getId() { return this.id }
+    // prettier-ignore
+    getId() { return this.id }
 
-   setId(id: string) {
-      this.id = id
-      this.refresh()
-   }
+    setId(id: string) {
+        this.id = id
+        this.refresh()
+    }
 
-   //
-   //
-   //
+    //
+    //
+    //
 
-   // Properties
-   // All properties of this entry are stored here.
-   private properties: AtlasClientEntryProperty[] = []
+    // Properties
+    // All properties of this entry are stored here.
+    private properties: AtlasClientEntryProperty[] = []
 
-   // prettier-ignore
-   getProperties() { return this.properties }
+    // prettier-ignore
+    getProperties() { return this.properties }
 
-   // Contingency getter in case two or more properties with same key exist.
-   // prettier-ignore
-   getPropertiesByKey(key: string) { return this.getProperties().filter(property => property.getKey() === key) }
+    // Contingency getter in case two or more properties with same key exist.
+    // prettier-ignore
+    getPropertiesByKey(key: string) { return this.getProperties().filter(property => property.getKey() === key) }
 
-   // Conventional getter, returns first property matching key.
-   // prettier-ignore
-   getPropertyByKey(key: string) { return this.getPropertiesByKey(key)[0] }
+    // Conventional getter, returns first property matching key.
+    // prettier-ignore
+    getPropertyByKey(key: string) { return this.getPropertiesByKey(key)[0] }
 
-   // Returns all properties with given value.
-   // prettier-ignore
-   getPropertiesByValue(value: any) { return this.getProperties().filter(property => property.getValue() === value) }
+    // Returns all properties with given value.
+    // prettier-ignore
+    getPropertiesByValue(value: any) { return this.getProperties().filter(property => property.getValue() === value) }
 
-   // Destructive action, avoid if possible.
-   setProperties(properties: AtlasClientEntryProperty[]) {
-      this.properties = properties
-      this.refresh()
-   }
+    // Destructive action, avoid if possible.
+    setProperties(properties: AtlasClientEntryProperty[]) {
+        this.properties = properties
+        this.refresh()
+    }
 
-   // Adds property to entry.
-   addProperty(property: AtlasClientEntryProperty) {
-      const properties = this.getProperties()
-      properties.push(property)
+    // Adds property to entry.
+    addProperty(property: AtlasClientEntryProperty) {
+        const properties = this.getProperties()
+        properties.push(property)
 
-      this.setProperties(properties)
-      return property
-   }
+        this.setProperties(properties)
+        return property
+    }
 
-   // Removes all instances of given property or properties
-   // prettier-ignore
-   removeProperty(property: AtlasClientEntryProperty) { this.setProperties(this.getProperties().filter(p => p !== property)) }
-   // prettier-ignore
-   removeProperties(properties: AtlasClientEntryProperty[]) { properties.forEach(property => this.removeProperty(property)) }
-   // prettier-ignore
-   removePropertyByKey(key: string) { this.removeProperties(this.getPropertiesByKey(key)) }
+    // Removes all instances of given property or properties
+    // prettier-ignore
+    removeProperty(property: AtlasClientEntryProperty) { this.setProperties(this.getProperties().filter(p => p !== property)) }
+    // prettier-ignore
+    removeProperties(properties: AtlasClientEntryProperty[]) { properties.forEach(property => this.removeProperty(property)) }
+    // prettier-ignore
+    removePropertyByKey(key: string) { this.removeProperties(this.getPropertiesByKey(key)) }
 
-   //
-   //
-   //
+    //
+    //
+    //
 }

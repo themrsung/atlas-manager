@@ -10,37 +10,46 @@ import Register from "../../pages/Register"
 import TermsOfService from "../../pages/TermsOfService"
 import Header from "../Header"
 import { RouteNames } from "./RouteNames"
+import S from "../../style/components/router/RouterStyles"
 
 export default function Router(props: { state: AtlasClientState }) {
-   const state = props.state
+    const state = props.state
 
-   return (
-      <BrowserRouter>
-         <Header state={state} />
-         <Routes>
-            <Route path={RouteNames.Home} element={<Home state={state} />} />
-            <Route
-               path={RouteNames.Console}
-               element={<Console state={state} />}
-            />
-            <Route
-               path={RouteNames.Register}
-               element={<Register state={state} />}
-            />
-            <Route path={RouteNames.Login} element={<Login state={state} />} />
-            <Route
-               path={RouteNames.TermsOfService}
-               element={<TermsOfService />}
-            />
-            <Route
-               path={RouteNames.PrivacyPolicy}
-               element={<PrivacyPolicy />}
-            />
-            <Route
-               path={RouteNames.EndUserLicenseAgreement}
-               element={<EndUserLicenseAgreement />}
-            />
-         </Routes>
-      </BrowserRouter>
-   )
+    return (
+        <BrowserRouter>
+            <Header state={state} />
+            <S.RoutesWrap>
+                <Routes>
+                    <Route
+                        path={RouteNames.Home}
+                        element={<Home state={state} />}
+                    />
+                    <Route
+                        path={RouteNames.Console}
+                        element={<Console state={state} />}
+                    />
+                    <Route
+                        path={RouteNames.Register}
+                        element={<Register state={state} />}
+                    />
+                    <Route
+                        path={RouteNames.Login}
+                        element={<Login state={state} />}
+                    />
+                    <Route
+                        path={RouteNames.TermsOfService}
+                        element={<TermsOfService />}
+                    />
+                    <Route
+                        path={RouteNames.PrivacyPolicy}
+                        element={<PrivacyPolicy />}
+                    />
+                    <Route
+                        path={RouteNames.EndUserLicenseAgreement}
+                        element={<EndUserLicenseAgreement />}
+                    />
+                </Routes>
+            </S.RoutesWrap>
+        </BrowserRouter>
+    )
 }
