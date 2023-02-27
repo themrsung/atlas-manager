@@ -144,4 +144,7 @@ export default class AtlasClientState {
 
         return properties
     }
+
+    // prettier-ignore
+    clearWindowProperties() { this.setMessageWindowProperties() }
 }

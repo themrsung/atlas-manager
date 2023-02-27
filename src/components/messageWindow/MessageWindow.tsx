@@ -8,8 +8,6 @@ export default function MessageWindow(props: { state: AtlasClientState }) {
     const state = props.state
     const windowProps = props.state.getMessageWindowProperties()
 
-    console.log(windowProps)
-
     if (windowProps?.getIsOpen()) {
         return (
             <S.Background>
@@ -18,8 +16,9 @@ export default function MessageWindow(props: { state: AtlasClientState }) {
                     {windowProps.getButtons().map(button => {
                         const onButtonClick = () => {
                             button.getCallback()()
-                            state.setMessageWindowProperties()
+                            state.clearWindowProperties()
                         }
+
                         switch (button.getType()) {
                             case MessageWindowButtonType.Primary:
                                 return (
